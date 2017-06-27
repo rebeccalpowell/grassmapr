@@ -22,15 +22,15 @@ maskClimateValues <- function(climate.stack, threshold, filename = '', ...) {
 
   if (filename != '') {
     outfile <- paste0(trim(filename), '.tif')
-    clim_mask <- reclassify(climate.stack,
+    climate_mask <- reclassify(climate.stack,
       c(-Inf,threshold,0, threshold,Inf,1),
       outfile, datatype = 'INT1U', overwrite = TRUE)
   } else {
-    clim_mask <- reclassify(climate.stack,
+    climate_mask <- reclassify(climate.stack,
       c(-Inf,threshold,0, threshold,Inf,1))
   }
 
-  return(clim_mask)
+  return(climate_mask)
 }
 
 
