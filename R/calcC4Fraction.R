@@ -1,3 +1,15 @@
+#' Calculate C4 Ratio
+#'
+#' @param C4.mask
+#' @param GS.mask
+#' @param veg.index
+#' @param filename
+#' @param ...
+#'
+#' @return
+#' @export
+#'
+#' @examples
 calcC4Fraction <- function(C4.mask, GS.mask, veg.index = NULL,
   filename = '', ...) {
 
