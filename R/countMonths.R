@@ -26,8 +26,8 @@ countMonths <- function(climate.mask, filename = '', ...) {
       overwrite = TRUE)
   } else {
     month_count <- sum(climate.mask)
-  }
-  return(month_count)
+    return(month_count)
+    }
   }
 
 

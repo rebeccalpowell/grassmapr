@@ -17,6 +17,16 @@ combineMasks <- function(temp.mask, precip.mask, filename = '', ...) {
   # Function masks grid cells that meet C4 (or GS) climate criteria.
   # Output is a rasterStack, nl = nlayers of the input rasterStack.
 
+
+  # Error check: same extent, grid, projection for all input layers
+  compareRaster(C4.mask, GS.mask, stopiffalse = TRUE, showwarning = TRUE)
+
+  # Error check: Climate stacks have same number of layers.
+
+  if(nlayers(C4.mask) != nlayers(GS.mask)){
+    stop("Climate masks have different number of layers")
+  }
+
   # If file name provided, write to disk; else process in memory/temp file.
 
   if(filename != '') {
@@ -29,9 +39,8 @@ combineMasks <- function(temp.mask, precip.mask, filename = '', ...) {
   } else {
     combined_mask <- overlay(temp.mask, precip.mask,
       fun = function(x, y) {return(x*y)})
+    return(combined_mask)
   }
-
-  return(combined_mask)
 }
 
 

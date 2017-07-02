@@ -28,9 +28,8 @@ maskClimateValues <- function(climate.stack, threshold, filename = '', ...) {
   } else {
     climate_mask <- reclassify(climate.stack,
       c(-Inf,threshold,0, threshold,Inf,1))
+    return(climate_mask)
   }
-
-  return(climate_mask)
 }
 
 
