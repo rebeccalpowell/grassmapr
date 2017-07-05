@@ -45,7 +45,7 @@ calcPFTCover <- function(C4.ratio, veg.layers = NULL, scale.factor = 100,
 
   if(!is.null(veg.layers)) {
     nonherb_veg <- overlay(veg_layers, fun = "sum")
-    herb_layer <- overlay(herb_layer, nonherb_veg, fun = "-", forcefun = TRUE)
+    null_herb <- overlay(null_herb, nonherb_veg, fun = "-", forcefun = TRUE)
   }
 
   # Step 3. Calculate C4 herbaceous layer:
@@ -53,16 +53,16 @@ calcPFTCover <- function(C4.ratio, veg.layers = NULL, scale.factor = 100,
   #  (ii) add all vegetation layers with flags (C4 = 1 & Herb = 1)
   #   Repeat for C3 herbaceous layer.
 
-  C4_nat_herb <- overlay(herb_layer, C4.ratio, fun = "*")
-  C3_nat_herb <- overlay(herb_layer, C4.ratio, fun = function(x,y){
+  C4_herb <- overlay(null_herb, C4.ratio, fun = "*")
+  C3_herb <- overlay(null_herb, C4.ratio, fun = function(x,y){
     return(x*(1-y))
     })
-  rm(nonherb_veg, herb_layer, C4.ratio)
+  rm(nonherb_veg, null_herb, C4.ratio)
 
   C4herb_index <- which((C4.flag == 1) & (herb.flag == 1))
   if(length(C4herb_index) != 0) {
     for (i in 1:length(C4herb_index)) {
-      C4_herb <- overlay(C4_nat_herb, veg.layers[[i]], fun = "+",
+      C4_herb <- overlay(C4_herb, veg.layers[[i]], fun = "+",
         forcefun = TRUE)
     }
   }
@@ -70,13 +70,12 @@ calcPFTCover <- function(C4.ratio, veg.layers = NULL, scale.factor = 100,
   C3herb_index <- which((C4.flag == 0) & (herb.flag == 1))
   if(length(C3herb_index) != 0) {
     for (i in 1:length(C3herb_index)) {
-      C3_herb <- overlay(C3_nat_herb, veg.layers[[i]], fun = "+",
+      C3_herb <- overlay(C3_herb, veg.layers[[i]], fun = "+",
         forcefun = TRUE)
     }
   }
 
-  #### Could add a C4woody_index option here ####
-  rm(C4herb_index, C3herb_index, C4_nat_herb, C3_nat_herb)
+  rm(C4herb_index, C3herb_index)
 
   # Step 4: Create brick of vegetation PFT cover; add in non-herbaceous layers
 
