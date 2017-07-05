@@ -3,10 +3,10 @@
 #' @param C4.mask Raster* object of C4 climate masks.
 #' @param GS.mask Raster* object of Growing Season climate masks.
 #' @param veg.index Raster* object of vegetation index ("greenness") values, corresponding to same temporal units as C4.mask and GS.mask
-#' @param filename Output root filename.
+#' @param filename Character. Output root filename.
 #' @param ...
 #'
-#' @return
+#' @return Raster layer. Percent C4 cover, assuming 100% herbaceous vegetation cover.
 #' @export
 #'
 #' @examples

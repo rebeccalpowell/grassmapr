@@ -13,9 +13,12 @@ calcC4Ratio(C4.mask, GS.mask, veg.index = NULL, filename = "", ...)
 
 \item{veg.index}{Raster* object of vegetation index ("greenness") values, corresponding to same temporal units as C4.mask and GS.mask}
 
-\item{filename}{Output root filename.}
+\item{filename}{Character. Output root filename.}
 
 \item{...}{}
+}
+\value{
+Raster layer. Percent C4 cover, assuming 100% herbaceous vegetation cover.
 }
 \description{
 Calculate C4 Ratio for Grasses

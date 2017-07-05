@@ -19,11 +19,11 @@ combineMasks <- function(temp.mask, precip.mask, filename = '', ...) {
 
 
   # Error check: same extent, grid, projection for all input layers
-  compareRaster(C4.mask, GS.mask, stopiffalse = TRUE, showwarning = TRUE)
+  compareRaster(temp.mask, precip.mask, stopiffalse = TRUE, showwarning = TRUE)
 
   # Error check: Climate stacks have same number of layers.
 
-  if(nlayers(C4.mask) != nlayers(GS.mask)){
+  if(nlayers(temp.mask) != nlayers(precip.mask)){
     stop("Climate masks have different number of layers")
   }
 
