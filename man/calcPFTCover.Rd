@@ -4,15 +4,15 @@
 \alias{calcPFTCover}
 \title{Calculate Plant Functional Type Layers}
 \usage{
-calcPFTCover(C4.ratio, veg.layers = NULL, scale.factor = 100,
-  C4.flag = NULL, herb.flag = NULL, filename = "", ...)
+calcPFTCover(C4.ratio, veg.layers = NULL, scale = 100, C4.flag = NULL,
+  herb.flag = NULL, filename = "", ...)
 }
 \arguments{
 \item{C4.ratio}{Raster layer. Grid cells correcpond to the C4 ratio of herbaceous cover}
 
 \item{veg.layers}{Raster* object. Each layer corresponds to non-herbaceous cover or agriculatural crop layers}
 
-\item{scale.factor}{Numeric. Scale factor that represents maximum percent cover}
+\item{scale}{Numeric. Scale factor that represents maximum percent cover}
 
 \item{C4.flag}{Numeric. Vector corresponding to nlayers of veg.layers object. 1 = C4 vegetation layer, 0 = C3 vegetation layer.}
 
