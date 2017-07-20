@@ -2,27 +2,49 @@
 % Please edit documentation in R/calcC4Ratio.R
 \name{calcC4Ratio}
 \alias{calcC4Ratio}
-\title{Calculate C4 Ratio for Grasses}
+\title{Predict C4 Ratio for Grasses}
 \usage{
 calcC4Ratio(C4.mask, GS.mask, veg.index = NULL, filename = "", ...)
 }
 \arguments{
-\item{C4.mask}{Raster* object of C4 climate masks.}
+\item{C4.mask}{Raster* object. Each layer represents C4 climate mask for
+given temporal window, may be result of \code{combineMasks}. Must have same
+number of layers as \code{GS.mask}.}
 
-\item{GS.mask}{Raster* object of Growing Season climate masks.}
+\item{GS.mask}{Raster* object. Each layer represents growing season climate
+mask for given temporal window, may be result of \code{combineMasks}. Must
+have same number of layers as \code{C4.mask}.}
 
-\item{veg.index}{Raster* object of vegetation index ("greenness") values, corresponding to same temporal units as C4.mask and GS.mask}
+\item{veg.index}{Raster* object. Optional layers to quantify vegetation
+"greenness" (e.g., a vegetation index). Must match temporal window and
+number of layers as \code{C4.mask} and \code{GS.mask}.}
 
-\item{filename}{Character. Output root filename.}
+\item{filename}{Character. Optional output root filename passed to
+\code{writeRaster}, default output file type is GeoTiff. If not specified,
+output is written to a temporary file.}
 
-\item{...}{}
+\item{...}{Other arguments passed to \code{writeRaster}.}
 }
 \value{
-Raster layer. Percent C4 cover, assuming 100% herbaceous vegetation cover.
+Raster layer. Percent of grasses with C4 photosynthetic pathway.
+  Percent C4 cover, assuming 100\% herbaceous vegetation cover.
 }
 \description{
-Calculate C4 Ratio for Grasses
+Calculates the percent of grasses with C4 photosynthetic pathway. Output
+  layer represents percent C4 vegetation in each grid cell, assuming 100\%
+  "grassy world".
 }
 \examples{
+\donttest{# Calculate C4 ratio in Colorado, based on climate data only
+C4_ratio <- calcC4Ratio(C4_mask, GS_mask)}
+\donttest{
+# Calculate C4 ratio, based on climate and monthly vegetation productivity
+data("COMonthlyNDVI") # Load monthly vegetation index for Colorado
+C4_ratio_vi <- calcC4Ratio(C4_mask, GS_mask, veg.index = COMonthlyNDVI)}
 
+# Plot climate-based C4 vegetation ratio
+plot(C4_ratio)
+}
+\seealso{
+\link[grassmapr]{combineMasks}, \link[raster]{overlay}.
 }

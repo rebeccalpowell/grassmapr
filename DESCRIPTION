@@ -4,10 +4,10 @@ Title: Predict C3/C4 Grass Distribution
 Version: 0.1.0
 Author: Sydney M. Firmin, Rebecca L. Powell, Daniel Griffith
 Maintainer: Rebecca L. Powell <rpowell8@du.edu> 
-Description: Predicts and maps distribution of C3/C4 grass cover, given input 
+Description: Maps distribution of C3 and C4 grass cover, predicted using input 
     climate layers and crossover temperature parameters. Optionally accepts 
-    inputs of vegetation layers (%grass, %woody, %other) and generates 
-    gridded %C3 and %C4 layers and d13C isoscape.
+    input of other vegetation layers (%woody, %crop, %other) and generates 
+    stable carbon (d13C) isoscape layer.
 Depends: R (>= 3.4.0)
 License: GPL-2
 Encoding: UTF-8

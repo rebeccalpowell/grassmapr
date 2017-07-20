@@ -7,18 +7,32 @@
 countMonths(climate.mask, filename = "", ...)
 }
 \arguments{
-\item{climate.mask}{Raster* object. Mask of grid cells that meet climate requirements. Object should be  multi-layer (i.e., multi-date).}
+\item{climate.mask}{Raster* object. Mask of grid cells that meet climate
+parameters, may be result of \code{combineMasks} or \code{maskClimateVals}.
+Object should be  multi-layer (i.e., multi-date).}
 
-\item{filename}{Character. Output base filename (required for large files).}
+\item{filename}{Character. Optional output root filename passed to
+\code{writeRaster}, default output file type is GeoTiff. If not specified,
+output is written to a temporary file.}
 
-\item{...}{}
+\item{...}{Other arguments passed to \code{writeRaster}.}
 }
 \value{
-RasterLayer. Pixel values correspond to number of months that climate requirements are met.
+RasterLayer. Values correspond to number of months (or other temporal
+  unit) that grid cell meets minimum climate parameters.
 }
 \description{
-Count Number of Months in Climate Mask Layers
+Generates raster layer of counts corresponding to number of times each grid
+  cell satisfies climate criteria, e.g., growing-season or C4 climate.
 }
 \examples{
+\donttest{# Count number of months each grid cell meets C4 climate criteria
+C4_month_total <- countMonths(C4_mask)}
 
+# Plot monthly totals
+plot(C4_month_total)
+}
+\seealso{
+\link[grassmapr]{maskClimateVals}, \link[grassmapr]{combineMasks},
+  \link{sum}.
 }
