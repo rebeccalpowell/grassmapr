@@ -11,6 +11,8 @@
 #'
 #' @param C4.ratio RasterLayer. C4 ratio of grass cover, result of
 #'   \code{calcC4Ratio}.
+#' @param GS.mask RasterBrick. Monthly mask of grid cells that meet growing
+#'   season criteria, result of \code{maskClimateVals} and \code{combineMasks}.
 #' @param veg.layers Raster* object. Each layer corresponds to non-herbaceous
 #'   cover or agriculatural crop layers.
 #' @param C4.flag Numeric. Vector with length equal to number of layers in
@@ -52,8 +54,8 @@
 #' }
 #' @seealso \link[grassmapr]{calcC4Ratio}, \link[raster]{overlay}.
 #'
-calcPFTCover <- function(C4.ratio, veg.layers = NULL, C4.flag = NULL,
-  herb.flag = NULL, scale = 100, filename = '', ...) {
+calcPFTCover <- function(C4.ratio, GS.mask, veg.layers = NULL, C4.flag = NULL,
+  herb.flag = NULL, scale = 100, filename = "", ...) {
 
   # Function to calculate vegetation cover, starting with "100% grass world,"
   #  incorporates other vegetation layers, and adjusts grass layers for crops.
@@ -78,8 +80,11 @@ calcPFTCover <- function(C4.ratio, veg.layers = NULL, C4.flag = NULL,
   }
 
   # Step 1. Initialize vegetation cover as "all-herbaceous world."
-  #   Herbaceous cover = 100% for all pixels.
-    null_herb <- setValues(C4.ratio, scale)
+  #   Herbaceous cover = 100% for all pixels that meet growing season thresholds
+  #     for at least one month of the year.
+
+    null_herb <- overlay(setValues(C4.ratio, scale),
+      (countMonths(GS.mask) != 0), fun = "*")
 
   # Step 2. Adjust for real world vegetation; subtract each vegetation layer
   #  from "all-herbaceous world" template.
@@ -131,9 +136,10 @@ calcPFTCover <- function(C4.ratio, veg.layers = NULL, C4.flag = NULL,
   #  names are lost.  Consider writing a header file at the same time, to
   #  record the band names.
 
-  if(filename != '') {
-    outfile <- paste0(trim(filename), '.tif')
-    writeRaster(pft_cover, outfile, datatype = 'INT2U', overwrite = TRUE)
+  if(filename != "") {
+    outfile <- paste0(trim(filename), ".tif")
+    writeRaster(pft_cover, outfile, format = "GTiff", datatype = "INT2U",
+      overwrite = TRUE)
   } else {
     return(pft_cover)
   }
