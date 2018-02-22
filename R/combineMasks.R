@@ -31,7 +31,7 @@
 #' plot(GS_mask)}
 #' @seealso \link[grassmapr]{maskClimateVals}, \link[raster]{overlay}.
 #'
-combineMasks <- function(temp.mask, precip.mask, filename = '', ...) {
+combineMasks <- function(temp.mask, precip.mask, filename = "", ...) {
 
   # Function masks grid cells that meet C4 or GS climate criteria.
   # Output is a rasterStack, nl = nlayers of the input rasterStack.
@@ -45,12 +45,13 @@ combineMasks <- function(temp.mask, precip.mask, filename = '', ...) {
   }
 
   # If file name provided, write to disk; else process in memory/temp file.
-  if(filename != '') {
-    outfile <- paste0(trim(filename), '.tif')
+  if(filename != "") {
+    outfile <- paste0(trim(filename), ".tif")
     combined_mask <- overlay(temp.mask, precip.mask,
         fun = function(x, y) {return(x*y)},
         filename = outfile,
-        datatype = 'INT1U',
+        format = "GTiff",
+        datatype = "INT1U",
         overwrite = TRUE)
   } else {
     combined_mask <- overlay(temp.mask, precip.mask,

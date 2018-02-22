@@ -32,12 +32,15 @@
 #' @seealso \link[grassmapr]{combineMasks}, \link[raster]{overlay}.
 #'
 calcC4Ratio <- function(C4.mask, GS.mask, veg.index = NULL,
-  filename = '', ...) {
+  filename = "", ...) {
 
   # If no veg.index provided, set weight to 1.
+  #   If veg.index provided, convert all negative values to zero.
 
   if(is.null(veg.index)) {
     veg.index <- setValues(C4.mask[[1]], 1)
+  } else {
+    veg.index[veg.index < 0] <- 0
   }
 
   # Error check: same extent, grid, projection for all input layers
@@ -57,13 +60,13 @@ calcC4Ratio <- function(C4.mask, GS.mask, veg.index = NULL,
     stop("Vegetation index has incorrect number of layers")
   }
 
-  if(filename != '') {
-    outfile <- paste0(trim(filename), '.tif')
+  if(filename != "") {
+    outfile <- paste0(trim(filename), ".tif")
     C4_ratio <- overlay(
       calc(overlay(veg.index, C4.mask, fun = "*"), fun = sum),
       calc(overlay(veg.index, GS.mask, fun = "*"), fun = sum),
       fun = function(x, y) {ifelse(y == 0, 0, x/y)},
-      filename = outfile, overwrite = TRUE)
+      filename = outfile, format = "GTiff", overwrite = TRUE)
   } else {
     C4_ratio <- overlay(
       calc(overlay(veg.index, C4.mask, fun = "*"), fun = sum),

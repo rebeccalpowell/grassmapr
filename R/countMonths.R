@@ -21,18 +21,19 @@
 #' @seealso \link[grassmapr]{maskClimateVals}, \link[grassmapr]{combineMasks},
 #'   \link{sum}.
 #'
-countMonths <- function(climate.mask, filename = '', ...) {
+countMonths <- function(climate.mask, filename = "", ...) {
 
   # Function sums grid cells in a multi-layer Raster* object that meet
   # climate criteria. Output is a rasterLayer.
 
   # If file name provided, write to disk; else process in memory/temp files.
 
-  if(filename != '') {
-    outfile <- paste0(trim(filename), '.tif')
+  if(filename != "") {
+    outfile <- paste0(trim(filename), ".tif")
     month_count <- overlay(climate.mask, fun = function(x) {return(sum(x))},
       filename = outfile,
-      datatype = 'INT1U',
+      format = "GTiff",
+      datatype = "INT1U",
       overwrite = TRUE)
   } else {
     month_count <- sum(climate.mask)

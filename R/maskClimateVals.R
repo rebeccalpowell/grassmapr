@@ -38,16 +38,17 @@
 #' plot(C4_temp_mask[[7]])
 #' @seealso \link[grassmapr]{combineMasks}, \link[raster]{reclassify}.
 #'
-maskClimateVals <- function(climate.stack, threshold, filename = '', ...) {
+maskClimateVals <- function(climate.stack, threshold, filename = "", ...) {
 
 # Function masks data values >= threshold for gridded climate data
 # Output is a rasterStack, nl = nlayers of the input rasterStack
 
-  if (filename != '') {
-    outfile <- paste0(trim(filename), '.tif')
+  if (filename != "") {
+    outfile <- paste0(trim(filename), ".tif")
     climate_mask <- reclassify(climate.stack,
       c(-Inf,threshold,0, threshold,Inf,1),
-      outfile, datatype = 'INT1U', overwrite = TRUE)
+      outfile, format = "GTiff", datatype = "INT1U",
+      overwrite = TRUE)
   } else {
     climate_mask <- reclassify(climate.stack,
       c(-Inf,threshold,0, threshold,Inf,1))

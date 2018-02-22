@@ -38,7 +38,7 @@
 #' @seealso \link[grassmapr]{calcPFTCover}, \link[grassmapr]{calcC4Ratio},
 #'   \link[raster]{overlay}.
 #'
-calcDel13C <- function(pft.cover, d13C.embs, scale = 100, filename = '', ...) {
+calcDel13C <- function(pft.cover, d13C.embs, scale = 100, filename = "", ...) {
 
   # Calculates d13C isoscape, given input vegetation percent cover by plant
   #   functional type and vector array of endmember values.
@@ -48,10 +48,10 @@ calcDel13C <- function(pft.cover, d13C.embs, scale = 100, filename = '', ...) {
     stop("Length of d13C.embs vector does not equal nlayers in pft.cover")
   }
 
-  if(filename != '') {
-    outfile <- paste0(trim(filename), '.tif')
+  if(filename != "") {
+    outfile <- paste0(trim(filename), ".tif")
     overlay(calc(pft.cover, function(x) x*d13C.embs/scale), fun = "sum",
-      outfile, datatype = 'INT2U', overwrite = TRUE)
+      outfile, format = "GTiff", datatype = "INT2U", overwrite = TRUE)
   } else {
     d13C_iso <- overlay(calc(pft.cover, function(x) x*d13C.embs/scale),
       fun = "sum")
