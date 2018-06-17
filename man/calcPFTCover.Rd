@@ -4,12 +4,15 @@
 \alias{calcPFTCover}
 \title{Calculate Plant Functional Type Cover Layers}
 \usage{
-calcPFTCover(C4.ratio, veg.layers = NULL, C4.flag = NULL,
+calcPFTCover(C4.ratio, GS.mask, veg.layers = NULL, C4.flag = NULL,
   herb.flag = NULL, scale = 100, filename = "", ...)
 }
 \arguments{
 \item{C4.ratio}{RasterLayer. C4 ratio of grass cover, result of
 \code{calcC4Ratio}.}
+
+\item{GS.mask}{RasterBrick. Monthly mask of grid cells that meet growing
+season criteria, result of \code{maskClimateVals} and \code{combineMasks}.}
 
 \item{veg.layers}{Raster* object. Each layer corresponds to non-herbaceous
 cover or agriculatural crop layers.}

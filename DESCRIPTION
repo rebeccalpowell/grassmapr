@@ -2,19 +2,18 @@ Package: grassmapr
 Type: Package
 Title: Predict C3/C4 Grass Distribution  
 Version: 0.1.0
-Author: Sydney M. Firmin, Rebecca L. Powell, Daniel Griffith
+Author: Rebecca L. Powell, Sydney M. Firmin, Daniel Griffith
 Maintainer: Rebecca L. Powell <rpowell8@du.edu> 
 Description: Maps distribution of C3 and C4 grass cover, predicted using input 
     climate layers and crossover temperature parameters. Optionally accepts 
-    input of other vegetation layers (%woody, %crop, %other) and generates 
+    input of other vegetation layers (%woody, %crop, %other, ...) and generates 
     stable carbon (d13C) isoscape layer.
-Depends: R (>= 3.4.1)
+Depends: R (>= 3.4.3)
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
 Imports: 
-    sp (>= 1.2-4),
-    raster (>= 2.5-8),
-    rgdal (>= 1.2-7)
+    sp (>= 1.2-5),
+    raster (>= 2.6-7)
 RoxygenNote: 6.0.1
 VignetteBuilder: knitr

@@ -1,4 +1,4 @@
-# grassmapr: Example Script
+# grassmapr: Example Script - COlorado
 
 # Load climate data
 data(COMeanTmp) # mean monthly temperature (deg. C)

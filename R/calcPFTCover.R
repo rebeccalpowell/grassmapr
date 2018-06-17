@@ -86,11 +86,14 @@ calcPFTCover <- function(C4.ratio, GS.mask, veg.layers = NULL, C4.flag = NULL,
     null_herb <- overlay(setValues(C4.ratio, scale),
       (countMonths(GS.mask) != 0), fun = "*")
 
-  # Step 2. Adjust for real world vegetation; subtract each vegetation layer
+    veg_layers_masked <- overlay(veg.layers,
+      (countMonths(GS.mask) != 0), fun = "*")
+
+  # Step 2. Adjust for real world vegetation; subtract sum of vegetation layers
   #  from "all-herbaceous world" template.
   if(!is.null(veg.layers)) {
-    null_herb <- overlay(null_herb, overlay(veg.layers, fun = "sum"),
-      fun = "-", forcefun = TRUE)
+    null_herb <- overlay(overlay(veg_layers_masked, fun = "sum"),
+      null_herb, fun = "diff")
   }
 
   # Step 3. Calculate C4 herbaceous layer:
@@ -100,7 +103,7 @@ calcPFTCover <- function(C4.ratio, GS.mask, veg.layers = NULL, C4.flag = NULL,
   C4herb_index <- which((C4.flag == 1) & (herb.flag == 1))
   if(length(C4herb_index) != 0) {
     C4_herb <- overlay(overlay(null_herb, C4.ratio, fun = "*"),
-      overlay(veg.layers[[C4herb_index]], fun = "sum"),
+      overlay(veg_layers_masked[[C4herb_index]], fun = "sum"),
       fun = "sum")
   } else {
     C4_herb <- overlay(null_herb, C4.ratio, fun = "*")
@@ -109,8 +112,8 @@ calcPFTCover <- function(C4.ratio, GS.mask, veg.layers = NULL, C4.flag = NULL,
   C3herb_index <- which((C4.flag == 0) & (herb.flag == 1))
   if(length(C3herb_index) != 0) {
     C3_herb <- overlay(overlay(null_herb, C4.ratio, fun = function(x,y) {
-      return(x*(1.0-y))}), overlay(veg.layers[[C3herb_index]], fun = "sum"),
-      fun = "sum")
+      return(x*(1.0-y))}), overlay(veg_layers_masked[[C3herb_index]],
+        fun = "sum"), fun = "sum")
   } else {
     C3_herb <- overlay(null_herb, C4.ratio, fun = function(x,y){
       return(x*(1.0-y))})
