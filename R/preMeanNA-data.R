@@ -1,11 +1,11 @@
-#' Mean Monthly Precipitation Grid for Colorado
+#' Mean Monthly Precipitation Grid for North America
 #'
 #' Gridded climatology of 1961-1990 monthly mean precipitation (in mm) at 10'
 #'   spatial resolution. Climatic Research Unit, High-Resolution Gridded
 #'   Dataset.
 #'
 #' @docType data
-#' @usage data(COMeanPre)
+#' @usage data(preMeanNA)
 #' @format An object of class \code{"RasterBrick"}, layers correspond to months;
 #'   see \code{\link[raster]{Raster-class}}.
 #' @keywords datasets
@@ -15,12 +15,12 @@
 #'   Anglia: \url{http://www.cru.uea.ac.uk/data/}
 #' @examples
 #' # Read in the data
-#' data(COMeanPre)
+#' data(preMeanNA)
 #' \donttest{
 #' # Plot all data layers
-#' plot(COMeanPre)}
+#' plot(preMeanNA)}
 #' \donttest{
 #' # Plot layer 3 only
-#' plot(COMeanPre[[3]])}
+#' plot(preMeanNA[[3]])}
 #'
-"COMeanPre"
+"preMeanNA"

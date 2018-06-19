@@ -1,12 +1,12 @@
-#' Percent woody cover for Colorado
+#' Percent woody cover for North America
 #'
-#' Gridded percent woody cover layer for Colorado in the year 2001 at 5' spatial
-#'   resolution. Derived from MODIS Vegetation Continuous Fields tree cover
-#'   layer, adjusted for shrub cover using MODIS IGBP Land-Cover Classification,
+#' Gridded percent woody cover layer for North America in the year 2001 at 
+#'   10' spatial resolution. Derived from MODIS Vegetation Continuous Fields 
+#'   tree coverlayer (v006).
 #'   following rules described in Powell \emph{et al.} 2012.
 #'
 #' @docType data
-#' @usage data(COWoody)
+#' @usage data(woodyNA)
 #' @format An object of class \code{"RasterLayer"}; see
 #'   \code{\link[raster]{Raster-class}}.
 #' @keywords datasets
@@ -27,9 +27,9 @@
 #'
 #' @examples
 #' # Read in the data
-#' data(COWoody)
+#' data(woodyNA)
 #' \donttest{
 #' # Plot data layer
-#' plot(COWoody)}
+#' plot(woodyNA)}
 #'
-"COWoody"
+"woodyNA"

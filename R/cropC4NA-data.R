@@ -1,13 +1,13 @@
-#' Percent C4 Crop Cover for Colorado
+#' Percent C4 Crop Cover for North America
 #'
-#' Gridded percent C4 crop cover layer for Colorado in the year 2000 at 5'
+#' Gridded percent C4 crop cover layer for North America in the year 2000 at 5'
 #'   spatial resolution. Integrates geographic distribution of global
 #'   agricultural lands (Ramankutty \emph{et al.} 2008) with distribution of
 #'   crop types (Monfreda \emph{et al.} 2008), following rules described in
 #'   Powell \emph{et al.} 2012.
 #'
 #' @docType data
-#' @usage data(COC4Crop)
+#' @usage data(cropC4NA)
 #' @format An object of class \code{"RasterLayer"}; see
 #'   \code{\link[raster]{Raster-class}}.
 #' @keywords datasets
@@ -29,9 +29,9 @@
 #'   University of British Columbia, Vancouver: \url{http://www.earthstat.org/}
 #' @examples
 #' # Read in the data
-#' data(COC4Crop)
+#' data(cropC4NA)
 #' \donttest{
 #' # Plot data layer
-#' plot(COC4Crop)}
+#' plot(cropC4NA)}
 #'
-"COC4Crop"
+"cropC4NA"

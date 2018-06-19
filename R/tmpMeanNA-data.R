@@ -1,11 +1,11 @@
-#' Mean Monthly Temperature Grid for Colorado
+#' Mean Monthly Temperature Grid for North America
 #'
 #' Gridded climatology of 1961-1990 monthly mean temperature (in deg. C) at 10'
 #'   spatial resolution. Climatic Research Unit, High-Resolution Gridded
 #'   Dataset.
 #'
 #' @docType data
-#' @usage data(COMeanTmp)
+#' @usage data(tmpMeanNA)
 #' @format An object of class \code{"RasterBrick"}, layers correspond to months;
 #'    see \code{\link[raster]{Raster-class}}.
 #' @keywords datasets
@@ -15,12 +15,12 @@
 #'   Anglia: \url{http://www.cru.uea.ac.uk/data/}
 #' @examples
 #' # Read in the data
-#' data(COMeanTmp)
+#' data(tmpMeanNA)
 #' \donttest{
 #' # Plot all data layers
-#' plot(COMeanTmp)}
+#' plot(tmpMeanNA)}
 #' \donttest{
 #' # Plot layer 3 only
-#' plot(COMeanTmp[[3]])}
+#' plot(tmpMeanNA[[3]])}
 #'
-"COMeanTmp"
+"tmpMeanNA"
