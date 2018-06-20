@@ -1,0 +1,276 @@
+---
+title: "Modeling the terrestrial distribution of plant carbon stable isotopes in R"
+author: 'Daniel M Griffith, Rebecca L Powell, Sydney Firmin, Jen Cotton, & Christopher J Still'
+date: "June 2018"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction & Objectives
+
+Our goal is to predict plant tissue $\delta$^13^C variation across a landscape. The primary driver of variation in plant $\delta$^13^C is the greater isotopic fractionation in C~3~ plants compared to C~4~ plants. The crossover temperature model is a physiologically based model that explains the turnover from C~3~ to C~4~ plants along gradients of temperature (Ehleringer et al., 1997; Collatz et al., 1998; Still et al., 2003). Note that $\delta$^13^C also varies with photosynthetic subtype in C~4~ plants and with rainfall in woody C~3~ plants (Cerling & Harris, 1999; Diefendorf et al., 2010; Kohn, 2010). Below, the shaded regions shows the effect of CO~2~ and temperature on the light use efficiency of C~3~ plants, and illustrates the temperature at which C~3~ efficiency drops below that of the average C~4~ plant.
+
+```{r pressure, echo = FALSE, message = FALSE, warning = FALSE, results = 'hide', fig.align = 'center', fig.width = 5, fig.height = 5}
+devtools::install_github(repo = "griffithdan/r3PG")
+library(r3PG)
+library(reshape2)
+library(raster)
+
+par(mar = c(5, 4, 4, 5) + 0.1)
+
+back_shade <- matrix(NA, nrow = 0, ncol = 1000)
+eff_lues <- seq(from = 0, to = 0.085, length.out = 1000)
+
+for(i in eff_lues){
+  back_shade <- rbind(back_shade, r3PG:::back_calc_co2(effective_LUE = i, Temperature = seq(from = 0, to = 45, length.out = 1000)))
+}
+back_shade <- back_shade[nrow(back_shade):1,]
+back_rst <- raster(back_shade, xmn = 0, xmx = 45, ymn = min(eff_lues), ymx = max(eff_lues))
+back_rst[back_rst > 800] <- NA
+back_rst[back_rst < 280] <- NA
+
+  plot(NULL, xlim = c(0,45), ylim = c(0.01, 0.07), xlab = expression(paste("Temperature (",degree,C,")", sep = "")), ylab = "Effective Quatum Yield (mol/mol)")
+  plot(back_rst, asp = 1, add = T, col = rev(grey.colors(100)), legend = FALSE)
+    r.range <- c(minValue(back_rst), maxValue(back_rst))
+    plot(back_rst, legend.only = TRUE, col = rev(grey.colors(100)), legend.width = 1, legend.shrink = 0.75, smallplot = c(0.24, 0.29, 0.25, 0.5), legend.args = list(text = expression(paste(CO[2]," (ppm)", sep = "")), side = 3, line = 0.5, cex = 1)); par(mar = par("mar"))
+    #tmps <- seq(from = 0, to = 45, length.out = 100)
+    #lines(col = "green", lwd = 2, calc_modifier_co2(alpha = 0.085, CO2 = 280, Temperature = tmps) ~ tmps)
+    segments(x0 = 0, y0 = 0.05, x1 = 45, y1 = 0.05, col = "dark orange", lwd = 2)
+    points(x = 22, y = 0.05, pch = 21, bg = "dodgerblue", cex = 1.5)
+  box()
+
+
+```
+
+We will combine the crossover temperature model with data on land cover and climate to produce map of C~3~ and C~4~ plants in North America. Then, we will apply isotopic endmember values to produce a spatially continuous representation of the distribution $\delta$^13^C across the continent. These layers are useful for understanding grass biogeography and for studies seeking to identify the movement of animals (e.g., Hobson, 1999; Powell et al., 2012)
+
+The code for this workflow is a work in progress, and we are developing an R package that will allow all of the pieces to be applied in customized pipelines. This package is called "grassmapr" and is installed below.
+
+This workflow also requires learning some basic fuctionality in the raster R package.
+
+## Installation
+
+Installation requires GitHub.
+<br>
+
+```{r, message = FALSE, warning = FALSE, results = 'hide'}
+install.packages("devtools", repos = "http://cran.us.r-project.org")
+library(devtools)
+install_github(repo = "rebeccalpowell/grassmapr")
+library(grassmapr)
+```
+
+## Load North America example data
+
+Now we need to load and organize the spatial datasets that we will use.
+<br>
+```{r, message = FALSE, warning = FALSE, results = 'hide'}
+
+tmp <- tmpMeanNA     # Mean Monthly Temperature (deg. C)
+pre <- preMeanNA     # Mean Monthly Precipitation (mm)
+woody <- woodyNA     # Woody Cover (%)
+C3crop <- cropC3NA   # C3 Crop Cover (%)
+C4crop <- cropC4NA   # C4 Crop Cover (%)
+
+```
+<br>
+The rainfall and temperature data are monthly climatologies, and so we might want to visualize them here as annual means.
+<br>
+```{r, message = FALSE, warning = FALSE, results = 'hide'}
+annual_tmp <- calc(tmp, fun = mean)
+annual_pre <- calc(pre, fun = sum)
+```
+<br>
+And, now we should plot the data. Based on the crossover temperature model, where would you expect to find C4 grasses?
+<br>
+```{r, message = FALSE, warning = FALSE, results = 'hide', fig.width = 6, fig.height = 6, fig.align = 'center'}
+par(mfrow = c(2,2))  
+plot(annual_tmp, 
+     main = expression(paste("Mean Annual Temperature (", ~degree, "C)", sep = "")))   
+plot(annual_pre, 
+     main = expression(paste("Total Annual Precipitation (mm)", sep = "")))
+plot(woody, 
+     main = expression(paste("Woody % Cover", sep = "")))      
+plot(C4crop, 
+     main = expression("C"[4]~"Crops (%)"))
+
+```
+
+We should ensure that all data have the same spatial extent and resolution.
+<br>
+```{r, message = FALSE, warning = FALSE, results = 'hide'}
+
+compareRaster(tmp,
+              pre,
+              woody,
+              C4crop,
+              C3crop)
+
+```
+<br>
+If these layers did not have the same extent and resolution, we could use the function resample() in order to make these layers compatible with each other.
+
+
+
+## A Workflow to produce a C~3~ and C~4~ distribution map for North America
+
+First, set a temperature threshold based on the crossover temperature model. In addtion, set a minimum monthly precipitation threshold - to identify locations that have sufficient moisture to support C~4~ grasses (for example, to exclude deserts and Mediterranean climates). 
+<br>
+```{r, message = FALSE, warning = FALSE, results = 'hide', fig.width = 9, fig.height = 4, fig.align = 'center'}
+# Set a temperature threshold for the COT model
+  temp.threshold <- 22
+# Set a precipitation threshold
+  precip.threshold <- 25
+# Set a growing season temperature threshold
+  gs.threshold <- 5
+```
+
+Create masks of climate layers that represent growing season months and months that favor C~4~ plants.
+<br>
+```{r, message = FALSE, warning = FALSE, results = 'hide', fig.width = 9, fig.height = 4, fig.align = 'center'}
+
+# Growing season precipitation mask (>= 25 mm)
+  precip_mask <- maskClimateVals(pre, precip.threshold)
+# Growing season temperature mask (>= 5 deg. C)
+  GS_temp_mask <- maskClimateVals(tmp, gs.threshold)
+# C4 temperature mask (>= 22 deg. C)
+  C4_temp_mask <- maskClimateVals(tmp, temp.threshold)
+
+# Generate Growing Season (GS) climate masks
+  GS_mask <- combineMasks(GS_temp_mask, precip_mask)
+# Generate C4 climate masks
+  C4_mask <- combineMasks(C4_temp_mask, precip_mask)
+
+```
+
+We can count the monthly masks to get an annual representation of the number of growing season months and C~4~ months. 
+<br>
+```{r, message = FALSE, warning = FALSE, results = 'hide', fig.width = 9, fig.height = 4, fig.align = 'center'}
+  
+# Count number of months that satisfy each climate criteria
+  GS_month_total <- countMonths(GS_mask)
+  C4_month_total <- countMonths(C4_mask)
+  
+  par(mfrow = c(1,2))
+    plot(GS_month_total, 
+      main = expression(paste("Growing Season (# months)", sep = "")),
+      zlim = c(0, 12))
+    plot(C4_month_total, 
+      main = expression(paste("C4 Climate (# months)", sep = "")),
+      zlim = c(0, 12))
+  
+```
+
+With these two monthly climate masks [and, optionally, monthly NDVI layers], we can calculate the proportion of the herbaceous layer that is C~4~. Note this is different than predicting *actual* vegetation cover.
+<br>
+```{r, message = FALSE, warning = FALSE, results = 'hide', fig.width = 4, fig.height = 4, fig.align = 'center'}
+
+# Calculate C4 ratio based on C4 climate only
+  C4_ratio <- calcC4Ratio(C4_mask, GS_mask)
+
+# [Optionally:] Calculate C4 ratio based on C4 climate AND vegetation productivity
+# C4_ratio_vi <- calcC4Ratio(C4_mask, GS_mask, veg.index = ndvi)
+  
+  par(mfrow = c(1,1))
+  plot(C4_ratio, main = "Herbaceous C"[4]~"proportion") 
+```
+
+Combine the herbaceous C~4~ proportion with other vegetation layers such as woody cover and crop cover. [*Note*: Other vegetation layers must be provided by the user.]
+<br>
+```{r, message = FALSE, warning = FALSE, results = 'hide', fig.width = 9, fig.height = 4, fig.align = 'center'}
+
+# Create raster stack of other (non-grassy) vegetation layers
+  veg_layers <- stack(woody, C3crop, C4crop)
+  
+# Indicate layers that correspond to C4 vegetation
+  C4_flag <- c(0, 0, 1)
+
+# Indicate layers that correspond to herbaceous vegetation
+  herb_flag <- c(0, 1, 1)
+  
+# Calculate plant functional type layers (C4 grass, C3 grass, woody)
+  pft_cover <- calcPFTCover(C4.ratio = C4_ratio, 
+                            GS.mask = GS_mask, 
+                            veg.layers = veg_layers, 
+                            C4.flag = C4_flag, 
+                            herb.flag = herb_flag)  
+
+  plot(pft_cover)
+
+```
+
+
+## Turning our vegetation map into an isoscape
+
+We will generate a vegetation stable carbon ($\delta$^13^C) isoscape by applying a simple linear mixing model to each grid cell. We identify (from the literature) $\delta$^13^C endmember values for each plant functional type layer, then weight the isotopic endmembers by the respective percent vegetation composition (in this case, C~4~ herbaceous, C~3~ herbaceous, C~3~ woody). 
+
+Note that in this example, we have elected to combine the C~4~ and C~3~ crop layers with corresponding natural grass layers; however, the functions presented here could be easily adapted for custom plant cover types.
+
+<br>
+```{r, message = FALSE, warning = FALSE, results = 'hide', fig.width = 9, fig.height = 4, fig.align = 'center'}
+
+# d13C endmember vector for PFT layers from the literature
+  d13C_emb <- c(-12.5, # C4 herb
+                -26.7, # C3 herb
+                -27.0) # Woody
+
+# Apply mixing model to generate d13C isoscape
+  d13C_iso <- calcDel13C(pft_cover, d13C_emb)
+
+# Standard deviations of d13C endmember means from the literature
+  d13C_std <- c(1.1, # C4 herb
+                2.3, # C3 herb
+                1.7) # Woody
+
+# Calculate weighted standard deviation of mean d13C values
+  d13C_iso_std <- calcDel13C(pft_cover, d13C_std)
+  
+  par(mfrow = c(1,2))
+  plot(d13C_iso, main = expression(Plant~{delta}^13*C~'\211'),
+    xlab = "", ylab = "", zlim = c(-27,-12))
+  plot(d13C_iso_std, main = expression(StDev~{delta}^13*C~'\211'),
+    xlab = "", ylab = "", zlim = c(1.0, 2.4))  
+
+```
+
+Thank you for your time, and we hope you enjoyed this test version of grassmapr!
+
+<br><br>
+
+## References
+
+Cerling, T. E., & Harris, J. M. (1999). Carbon isotope fractionation between diet and bioapatite in ungulate mammals and implications for ecological and paleoecological studies. Oecologia, 120, 347 - 363.
+
+Collatz, G. J., Berry, J. A., & Clark, J. S. (1998). Effects of climate and atmospheric CO2 partial pressure on the global distribution of C4 grasses: Present, past, and future. Oecologia, 114, 441 - 454.
+
+Diefendorf, A. F., Mueller, K. E., Wing, S. L., Koch, P. L., & Freeman, K. H. (2010). Global patterns in leaf 13C discrimination and implications for studies of past and future climate. Proceedings of the National Academy of Sciences USA, 107, 5738 - 5743.
+
+Ehleringer, J. R., Cerling, T. E., & Helliker, B. R. (1997). C 4 photosynthesis, atmospheric CO 2 , and climate. Oecologia, 112, 285 - 299.
+
+Hobson, K. A. (1999). Tracing origins and migration of wildlife using stable isotopes: A review. Oecologia, 120, 314 - 326.
+
+Kohn, M. J. (2010). Carbon isotope compositions of terrestrial C3 plants as indicators of (paleo) ecology and (paleo) climate. Proceedings of the National Academy of Sciences USA, 107, 19691 - 19695.
+
+Powell, R. L., Yoo, E.-H., & Still, C. J. (2012). Vegetation and soil carbon 13 isoscapes for South America: Integrating remote sensing and ecosystem isotope measurements. Ecosphere, 3, 1 - 25.
+
+Still, C. J., Berry, J. A., Collatz, G. J., & DeFries, R. S. (2003). Global distribution of C 3 and C 4 vegetation: Carbon cycle implications. Global Biogeochemical Cycles, 17, 1006.
+
+
+
+
+
+
+
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+
+
+
+
+
