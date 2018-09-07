@@ -1,17 +1,18 @@
-#' grassmapr: A package to map C3/C4 grass distribution and model d13C isoscape
+#' grassmapr: A package to map C3/C4 grass distribution and model terrestrial
+#'   d13C isoscape
 #'
-#' \pkg{grassmapr} provides functions (1) to predict C3 and C4 grass cover;
-#'   optionally, provides functions to integrate other vegetation layers (e.g.,
-#'   \% woody cover) and (2) to generate stable carbon (d13C) isoscapes for
-#'   terrestrial vegetation.
+#' \pkg{grassmapr} provides functions (1) to predict C3 and C4 grass cover based
+#'   on climate constraints; optionally, provides functions to integrate other
+#'   vegetation layers (e.g., \% woody cover) and (2) to generate stable carbon
+#'   (d13C) isoscapes for terrestrial vegetation.
 #'
 #' @docType package
 #'
 #' @name grassmapr
 #'
-#' @author Sydney M. Firmin, Rebecca L. Powell, Daniel M. Griffith
+#' @author Rebecca L. Powell, Daniel M. Griffith, Sydney M. Firmin
 #'
-#' \emph{Maintainer:} Rebecca L. Powell <\email{rpowell8@du.edu}>
+#' \emph{Maintainer:} Rebecca L. Powell <\email{rebecca.l.powell@du.edu}>
 #'
 #' @section
 #' \strong{1. Mapping C3/C4 grass distribution}:
@@ -22,12 +23,12 @@
 #'   object:
 #'
 #' \tabular{lll}{
-#'   \code{maskClimateVals} \tab .... \tab To create climate masks based on
+#'   \code{mask_grids} \tab .... \tab To create climate masks based on
 #'     single variable\cr
-#'   \code{combineMasks} \tab .... \tab To intersect climate masks (two
+#'   \code{intersect_masks} \tab .... \tab To intersect climate masks (two
 #'     variables)\cr
-#'   \code{calcC4Ratio} \tab .... \tab To predict the C4 grass ratio of each
-#'     grid cell\cr
+#'   \code{calc_C4_ratio} \tab .... \tab To predict the C4 grass proportion of
+#'     grasses for each grid cell\cr
 #' }
 #'
 #' @section
@@ -38,9 +39,9 @@
 #'   d13C endmembers for each plant functional type, based on relative cover:
 #'
 #' \tabular{lll}{
-#'   \code{calcPFTCover} \tab .... \tab To incorporate non-grass vegetation
+#'   \code{calc_pft_cover} \tab .... \tab To incorporate non-grass vegetation
 #'     layers\cr
-#'   \code{calcDel13C} \tab .... \tab To generate stable carbon isoscape\cr
+#'   \code{calc_del13C} \tab .... \tab To generate stable carbon isoscape\cr
 #' }
 #'
 #' @references Still CJ, \emph{et al.} 2003. Global
