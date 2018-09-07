@@ -128,7 +128,7 @@ First, set a temperature threshold based on the crossover temperature model. In 
   C4_temp <- 22
 # Set a growing season temperature threshold (>= 5 deg. C)
   GS_temp <- 5
-  # Set a precipitation threshold (>= 25 mm)
+# Set a precipitation threshold (>= 25 mm)
   min_prec <- 25
   
 ```
@@ -136,13 +136,6 @@ First, set a temperature threshold based on the crossover temperature model. In 
 Create masks of climate layers that represent growing season months and months that favor C~4~ plants.
 <br>
 ```{r, message = FALSE, warning = FALSE, results = 'hide', fig.width = 9, fig.height = 4, fig.align = 'center'}
-
-# Growing season precipitation mask (>= 25 mm)
-  precip_mask <- mask_grids(pre, precip_threshold)
-# Growing season temperature mask (>= 5 deg. C)
-  GS_temp_mask <- mask_grids(tmp, gs_threshold)
-# C4 temperature mask (>= 22 deg. C)
-  C4_temp_mask <- mask_grids(tmp, temp_threshold)
 
 # Generate Growing Season (GS) climate masks
   GS_masks <- mask_climate(temp.stack = temp_NA,
