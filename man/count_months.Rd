@@ -35,6 +35,6 @@ plot(C4_month_total)
 }
 }
 \seealso{
-\link[grassmapr]{mask_grids}, \link[grassmapr]{intersect_masks},
-  \link{sum}.
+\link[grassmapr]{mask_climate}, \link[grassmapr]{mask_grids},
+  \link[grassmapr]{intersect_masks}, \link{sum}.
 }

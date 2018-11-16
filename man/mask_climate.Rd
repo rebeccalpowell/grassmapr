@@ -2,7 +2,7 @@
 % Please edit documentation in R/mask_climate.R
 \name{mask_climate}
 \alias{mask_climate}
-\title{Generate Climate Masks Based on Two Parameters NEED NEW HEADING}
+\title{Generate Climate Masks Based on Two Parameters}
 \usage{
 mask_climate(temp.stack, temp.threshold, precip.stack, precip.threshold,
   filename = "", ...)
@@ -12,14 +12,14 @@ mask_climate(temp.stack, temp.threshold, precip.stack, precip.threshold,
 different temporal window (e.g., month) for a temperature climate variable.
 Object may be single or multi-layer.}
 
-\item{temp.threshold}{Numeric. Threshold value (lower-bound) for temperature
-variable.}
+\item{temp.threshold}{Numeric. Threshold value (lower-bound, inclusive) for
+temperature variable.}
 
 \item{precip.stack}{Raster* object. Each layer corresponds to a
 different temporal window (e.g., month) for a precipitation climate variable.
 Object may be single or multi-layer.}
 
-\item{precip.threshold}{Numeric. Threshold value (lower-bound) for
+\item{precip.threshold}{Numeric. Threshold value (lower-bound, inclusive) for
 precipitation variable.}
 
 \item{filename}{Character. Optional output root filename passed to
@@ -34,11 +34,10 @@ RasterBrick. One output mask layer for each input layer. If filename
   type.
 }
 \description{
-Wraper script to generate climate masks based on two climate parameters,
-  for example growing-season mask or C4 climate mask. Grid cells
-  reclassified as 1 satisify both temperature and precipitation criteria,
-  grid cells classified as 0 fail to satisify criteria for at least one
-  variable.
+Generates climate masks based on two climate variables, typically
+  temperature and precipitation. Grid cells reclassified as 1 satisfy both
+  temperature and precipitation criteria; grid cells classified as 0 fail
+  to satisfy criteria for at least one variable.
 }
 \examples{
 \donttest{# Load data for example

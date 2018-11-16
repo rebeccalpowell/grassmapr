@@ -5,7 +5,7 @@
 #'   Dataset.
 #'
 #' @docType data
-#' @usage data(precip_NA)
+#' @usage data(prec_NA)
 #' @format An object of class \code{"RasterBrick"}, layers correspond to months;
 #'   see \code{\linkS4class{Raster}}.
 #' @keywords datasets
@@ -15,12 +15,12 @@
 #'   Anglia: \url{http://www.cru.uea.ac.uk/data/}
 #' @examples
 #' # Read in the data
-#' data(precip_NA)
+#' data(prec_NA)
 #' \donttest{
 #' # Plot all data layers
-#' plot(precip_NA)}
+#' plot(prec_NA)}
 #' \donttest{
 #' # Plot mean monthly precipitation for March
-#' plot(precip_NA[[3]])}
+#' plot(prec_NA[[3]])}
 #'
-"precip_NA"
+"prec_NA"

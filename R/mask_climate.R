@@ -1,20 +1,20 @@
-#' Generate Climate Masks Based on Two Parameters NEED NEW HEADING
+#' Generate Climate Masks Based on Two Parameters
 #'
-#' Wraper script to generate climate masks based on two climate parameters,
-#'   for example growing-season mask or C4 climate mask. Grid cells
-#'   reclassified as 1 satisify both temperature and precipitation criteria,
-#'   grid cells classified as 0 fail to satisify criteria for at least one
-#'   variable.
+#' Generates climate masks based on two climate variables, typically
+#'   temperature and precipitation. Grid cells reclassified as 1 satisfy both
+#'   temperature and precipitation criteria; grid cells classified as 0 fail
+#'   to satisfy criteria for at least one variable.
+#'
 #'
 #' @param temp.stack Raster* object. Each layer corresponds to a
 #'   different temporal window (e.g., month) for a temperature climate variable.
 #'   Object may be single or multi-layer.
-#' @param temp.threshold Numeric. Threshold value (lower-bound) for temperature
-#'   variable.
+#' @param temp.threshold Numeric. Threshold value (lower-bound, inclusive) for
+#'   temperature variable.
 #' @param precip.stack Raster* object. Each layer corresponds to a
 #'   different temporal window (e.g., month) for a precipitation climate variable.
 #'   Object may be single or multi-layer.
-#' @param precip.threshold Numeric. Threshold value (lower-bound) for
+#' @param precip.threshold Numeric. Threshold value (lower-bound, inclusive) for
 #'   precipitation variable.
 #' @param filename Character. Optional output root filename passed to
 #'   \code{writeRaster}, default output file type is GeoTiff. If not specified,
@@ -58,14 +58,14 @@ mask_climate <- function(temp.stack, temp.threshold, precip.stack,
   # If file name provided, write to disk; else process in memory/temp file.
   if(filename != "") {
     outfile <- paste0(trim(filename), ".tif")
-    climate_mask <- intersect_mask(mask_grids(temp.stack, temp.threshold),
+    climate_mask <- intersect_masks(mask_grids(temp.stack, temp.threshold),
         mask_grids(precip.stack, precip.threshold),
         filename = outfile,
         format = "GTiff",
         datatype = "INT1U",
         overwrite = TRUE)
   } else {
-    climate_mask <- intersect_mask(mask_grids(temp.stack, temp.threshold),
+    climate_mask <- intersect_masks(mask_grids(temp.stack, temp.threshold),
       mask_grids(precip.stack, precip.threshold))
     return(climate_mask)
   }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/intersect_masks.R
 \name{intersect_masks}
 \alias{intersect_masks}
-\title{Generate Climate Masks Based on Two Parameters}
+\title{Intersect Two Masks}
 \usage{
 intersect_masks(temp.mask, precip.mask, filename = "", ...)
 }
@@ -27,11 +27,10 @@ RasterBrick. One output mask layer for each input layer. If filename
   type.
 }
 \description{
-Intersects temperature and precipitation climate masks, resulting in a single
-  mask layer (for example growing-season mask or C4 climate mask). Grid cells
-  reclassified as 1 satisify both temperature and precipitation criteria,
-  grid cells classified as 0 fail to satisify criteria for at least one
-  variable.
+Intersects two masks to identify cells that meet both criteria for
+  corresponding layers. Grid cells that satisfy both criteria are
+  reclassified as 1, grid cells that fail at least one criteria are
+  reclassified as 0.
 }
 \examples{
 \donttest{# Generate masks of grid cells that satisfy C4-climate criteria

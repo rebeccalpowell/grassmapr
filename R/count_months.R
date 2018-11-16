@@ -20,8 +20,8 @@
 #' # Plot monthly totals
 #' plot(C4_month_total)
 #' }
-#' @seealso \link[grassmapr]{mask_grids}, \link[grassmapr]{intersect_masks},
-#'   \link{sum}.
+#' @seealso \link[grassmapr]{mask_climate}, \link[grassmapr]{mask_grids},
+#'   \link[grassmapr]{intersect_masks}, \link{sum}.
 #'
 count_months <- function(climate.mask, filename = "", ...) {
 

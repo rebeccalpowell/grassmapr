@@ -28,11 +28,10 @@ output is written to a temporary file.}
 }
 \value{
 Raster layer. Proportion of grasses with C4 photosynthetic pathway.
-  Percent C4 cover, given assumption of 100\% herbaceous vegetation cover
-  (i.e., "grassy world").
 }
 \description{
-Calculates the proportion of grasses with C4 photosynthetic pathway. Output
+Calculates the proportion of grasses with C4 photosynthetic pathway based on
+  climate data (and, optionally, vegetation "greenness" weights). Output
   layer represents percent C4 vegetation in each grid cell, assuming 100\%
   "grassy world."
 }

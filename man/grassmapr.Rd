@@ -21,10 +21,8 @@ To predict and map the C3/C4 distribution of grasses, the following functions
   object:
 
 \tabular{lll}{
-  \code{mask_grids} \tab .... \tab To create climate masks based on
-    single variable\cr
-  \code{intersect_masks} \tab .... \tab To intersect climate masks (two
-    variables)\cr
+  \code{mask_climate} \tab .... \tab To generate climate masks based on
+    two climate variables, usually temperature and precipitation\cr
   \code{calc_C4_ratio} \tab .... \tab To predict the C4 grass proportion of
     grasses for each grid cell\cr
 }
@@ -33,8 +31,10 @@ To predict and map the C3/C4 distribution of grasses, the following functions
 \section{\strong{2. Modeling d13C isoscape for terrestrial vegetation}}{
 
 
-User may optionally incorporate other vegetation layers (e.g., \% woody
-  cover, \% crop cover, etc.), and/or apply a simple mixing model applying
+To predict and map the d13C isoscape for terrestrial vegetation, the
+  following steps should be applied sequentially. First, the user may
+  optionally incorporate other vegetation layers (e.g., \% woody
+  cover, \% crop cover, etc.). Second, a simple mixing model is applied to
   d13C endmembers for each plant functional type, based on relative cover:
 
 \tabular{lll}{
@@ -46,11 +46,11 @@ User may optionally incorporate other vegetation layers (e.g., \% woody
 
 \references{
 Still CJ, \emph{et al.} 2003. Global
-  distribution of C3 and C4 vegetation: carbon cycle implcations.
+  distribution of C3 and C4 vegetation: carbon cycle implications.
   \emph{Global Biogeochemical Cycles} 17:1006.
 
 Still CJ and Powell RL. 2010. Continental-scale distributions of vegetation
-  stable carbon isotope ratios. In: West JB, \emph{et al.} (Eds).
+  stable carbon isotope ratios. In: West JB, \emph{ et al.} (Eds).
   \emph{Isoscapes: understanding movement, pattern, and process on earth
   through isotope mapping}. Dordrecht: Springer.
 

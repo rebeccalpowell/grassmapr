@@ -1,6 +1,7 @@
 #' Predict C4 Ratio for Grasses
 #'
-#' Calculates the proportion of grasses with C4 photosynthetic pathway. Output
+#' Calculates the proportion of grasses with C4 photosynthetic pathway based on
+#'   climate data (and, optionally, vegetation "greenness" weights). Output
 #'   layer represents percent C4 vegetation in each grid cell, assuming 100\%
 #'   "grassy world."
 #'
@@ -19,8 +20,6 @@
 #'   output is written to a temporary file.
 #' @param ... Other arguments passed to \code{writeRaster}.
 #' @return Raster layer. Proportion of grasses with C4 photosynthetic pathway.
-#'   Percent C4 cover, given assumption of 100\% herbaceous vegetation cover
-#'   (i.e., "grassy world").
 #' @export
 #' @examples \donttest{# Calculate C4 ratio for North America, based on climate data only
 #' C4_ratio <- calc_C4_ratio(C4_mask, GS_mask)

@@ -1,10 +1,9 @@
-#' Generate Climate Masks Based on Two Parameters
+#' Intersect Two Masks
 #'
-#' Intersects temperature and precipitation climate masks, resulting in a single
-#'   mask layer (for example growing-season mask or C4 climate mask). Grid cells
-#'   reclassified as 1 satisify both temperature and precipitation criteria,
-#'   grid cells classified as 0 fail to satisify criteria for at least one
-#'   variable.
+#' Intersects two masks to identify cells that meet both criteria for
+#'   corresponding layers. Grid cells that satisfy both criteria are
+#'   reclassified as 1, grid cells that fail at least one criteria are
+#'   reclassified as 0.
 #'
 #' @param temp.mask Raster* object. Mask of grid cells that meet minimum
 #'   temperature threshold, may be result of  \code{mask_grids}. Object may

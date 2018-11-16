@@ -6,8 +6,8 @@
 #'   the sum of the other vegetation layers from 100\% grass cover, and (2)
 #'   partitioning the remaining percent grass cover into C3 and C4 components by
 #'   multiplying by the C4 grass ratio (result of \code{calc_C4_ratio}). If C3/C4
-#'   crop cover layers are provided, each is added to the respective C3/C4 grass
-#'   cover layers.
+#'   crop cover layers are provided, the user may add these to respective C3/C4
+#'   grass cover layers.
 #'
 #' @param C4.ratio RasterLayer. C4 ratio of grass cover, result of
 #'   \code{calc_C4_ratio}.
@@ -33,8 +33,8 @@
 #' @return RasterBrick. Each layer corresponds to percent vegetation cover;
 #'   stack layers are ordered as follows - Layer[[1]]: C4 herbaceous, Layer[[2]]:
 #'   C3 herbaceous, Layer[[3]], ...: optional vegetation layer[s] provided by
-#'   user. C4/C3 herbaceous layers include C4/C3 grass + C4/C3 crop cover,
-#'   respectively.
+#'   user. C4/C3 herbaceous layers may combine C4/C3 grass + C4/C3 crop cover,
+#'   if specified by user.
 #' @export
 #' @examples # Load additional vegetation cover layers for North America to use
 #'   in this example

@@ -2,7 +2,7 @@
 % Please edit documentation in R/mask_grids.R
 \name{mask_grids}
 \alias{mask_grids}
-\title{Mask Climate Grids Based on Single Parameter}
+\title{Mask Grids Based on Single Parameter}
 \usage{
 mask_grids(climate.stack, threshold, filename = "", ...)
 }
@@ -11,8 +11,8 @@ mask_grids(climate.stack, threshold, filename = "", ...)
 different temporal window (e.g., month) for a single climate variable.
 Object may be single or multi-layer.}
 
-\item{threshold}{Numeric. Threshold value (lower-bound) for a single climate
-variable.}
+\item{threshold}{Numeric. Threshold value (lower-bound, inclusive) for a
+single climate variable.}
 
 \item{filename}{Character. Optional output root filename passed to
 \code{writeRaster}, default output file type is GeoTiff. If not specified,
@@ -26,10 +26,11 @@ RasterBrick. One output mask layer for each input data layer. If
   data type.
 }
 \description{
-Builds climate mask(s) based on a user-specified threshold for a single
-  climate parameter (e.g., mean precipitation or temperature). Grid cells
+Builds mask(s) based on a user-specified threshold for a single
+  variable (e.g., mean precipitation or temperature). Grid cells
   greater than or equal to threshold value are reclassified as 1, values less
-  than thershold as 0. May be applied to multi-date stack of climate grids.
+  than the threshold as 0. May be applied to a stack of grids (e.g.,
+  multi-date climate layers).
 }
 \examples{
 \donttest{# Climate data for North America to use in this example

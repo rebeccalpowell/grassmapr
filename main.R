@@ -1,59 +1,68 @@
 # grassmapr: Example Script - North America
 
 # Load North America climate data
-data(temp_NA) # mean monthly temperature (deg. C)
-data(precip_NA) # mean monthly precipitation (mm)
+data(temp_NA)   # mean monthly temperature (deg. C)
+data(prec_NA)   # mean monthly precipitation totals (mm)
+
 
 # Set a C4 temperature threshold based on the COT model (>= 22 deg. C)
 C4_temp <- 22
 # Set a growing season temperature threshold (>= 5 deg. C)
 GS_temp <- 5
-# Set a precipitation threshold (>= 25 mm)
-min_prec <- 25
+# Set a minimum precipitation threshold (>= 25 mm)
+GS_prec <- 25
 
-# Generate Growing Season (GS) climate masks
-GS_masks <- combineMasks(GS_temp_mask, precip_mask)
-# Generate C4 climate masks
-C4_masks <- combineMasks(C4_temp_mask, precip_mask)
 
-# Generate Growing Season (GS) climate masks
-GS_masks <- mask_climate(temp.stack = temp_NA,
-  temp.threshold = GS_temp,
-  precip.stack = precip_NA,
-  precip.threshold = min_prec)
-
-# Generate C4 climate masks
+# Generate monthly C4 climate masks
 C4_masks <- mask_climate(temp.stack = temp_NA,
   temp.threshold = C4_temp,
-  precip.stack = precip_NA,
-  precip.threshold = min_prec)
+  precip.stack = prec_NA,
+  precip.threshold = GS_prec)
+
+# Generate monthly Growing Season (GS) climate masks
+GS_masks <- mask_climate(temp.stack = temp_NA,
+  temp.threshold = GS_temp,
+  precip.stack = prec_NA,
+  precip.threshold = GS_prec)
+
 
 # Optional - count number of months that satisfy each climate criteria
-GS_month_total <- countMonths(GS_masks)
-C4_month_total <- countMonths(C4_masks)
+GS_month_total <- count_months(GS_masks)
+C4_month_total <- count_months(C4_masks)
 
-# Remove intermediate raster objects
-rm(precip_NA, temp_NA)
+# Plot GS month total, C4 month total
+par(mfrow = c(1,2))
+plot(C4_month_total)
+plot(GS_month_total)
 
-# Load monthly NDVI layers
-data(ndvi_NA)
-
-# Calculate C4 ratio based on C4 climate only
+# Calculate C4 herbaceous proportion based on C4 climate only
 C4_ratio <- calc_C4_ratio(C4_masks, GS_masks)
 
-#OR Calculate C4 ratio based on C4 climate AND vegetation productivity
+# Plot C4 herbaceous proportion [i.e., predicted C4 ratio of grasses, based on climate]
+par(mfrow = c(1,1))
+plot(C4_ratio)
+
+# [Optionally] - Load monthly NDVI layers
+data(ndvi_NA)
+
+# Calculate C4 ratio based on C4 climate AND vegetation productivity
 C4_ratio_vi <- calc_C4_ratio(C4_masks, GS_masks, veg.index = ndvi_NA)
 
-# Remove intermediate raster objects
-rm(GS_masks, C4_masks, ndvi_NA)
+# Compare two predictions of C4 ratio
+par(mfrow = c(1,2))
+plot(C4_ratio)
+plot(C4_ratio_vi)
 
 # Load non-grass vegetation layers
-data(woody_NA)
-data(cropC3_NA)
-data(cropC4_NA)
+data(woody_NA)  # woody cover (%)
+data(cropC3_NA) # C3 crop cover (%)
+data(cropC4_NA) # C4 crop cover (%)
 
-# Create raster stack of other (non-grassy) vegetation layers
+# Create raster stack of non-grass vegetation layers
 veg_layers <- stack(woody_NA, cropC3_NA, cropC4_NA)
+
+# Plot non-grass vegetation layers
+plot(veg_layers)
 
 #Indicate layers that correspond to C4 vegetation
 C4_flag <- c(0, 0, 1)
@@ -68,6 +77,9 @@ pft_cover <- calc_pft_cover(C4.ratio = C4_ratio,
                             C4.flag = C4_flag,
                             herb.flag = herb_flag)
 
+# Plote PFT cover layers (%C4 herbaceous, %C3 herbaceous, %woody)
+plot(pft_cover)
+
 # d13C endmember vector for PFT layers from the literature
 d13C_emb <- c(-12.5, -26.7, -27.0) # C4 herb, C3 herb, Woody
 
@@ -81,11 +93,13 @@ d13C_std <- c(1.1, 2.3, 1.7) # C4 herb, C3 herb, Woody
 d13C_iso_std <- calc_del13C(pft_cover, d13C_std)
 
 # Plot d13C isoscape and standard deviation layers
-par(mfrow = c(1,2))
+par(mfrow = c(1, 2))
 plot(d13C_iso, main = "Mean Vegetation d13C \n(per mil)",
-  xlab = "longitude", ylab = "latitude")
+  xlab = "longitude", ylab = "latitude",
+  zlim = c(-27, -12))
 plot(d13C_iso_std, main = "Std. Dev. d13C \n(per mil)",
-  xlab = "longitude", ylab = "latitude")
+  xlab = "longitude", ylab = "latitude",
+  zlim = c(1.0, 2.4))
 
 # Remove intermediate raster objects
 rm(woody_NA, cropC3_NA, cropC4_NA)

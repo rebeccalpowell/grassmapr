@@ -1,15 +1,16 @@
-#' Mask Climate Grids Based on Single Parameter
+#' Mask Grids Based on Single Parameter
 #'
-#' Builds climate mask(s) based on a user-specified threshold for a single
-#'   climate parameter (e.g., mean precipitation or temperature). Grid cells
+#' Builds mask(s) based on a user-specified threshold for a single
+#'   variable (e.g., mean precipitation or temperature). Grid cells
 #'   greater than or equal to threshold value are reclassified as 1, values less
-#'   than thershold as 0. May be applied to multi-date stack of climate grids.
+#'   than the threshold as 0. May be applied to a stack of grids (e.g.,
+#'   multi-date climate layers).
 #'
 #' @param climate.stack Raster* object. Each layer corresponds to a
 #'   different temporal window (e.g., month) for a single climate variable.
 #'   Object may be single or multi-layer.
-#' @param threshold Numeric. Threshold value (lower-bound) for a single climate
-#'   variable.
+#' @param threshold Numeric. Threshold value (lower-bound, inclusive) for a
+#'   single climate variable.
 #' @param filename Character. Optional output root filename passed to
 #'   \code{writeRaster}, default output file type is GeoTiff. If not specified,
 #'   output is written to a temporary file.
