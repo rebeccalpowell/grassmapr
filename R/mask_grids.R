@@ -24,15 +24,13 @@
 #' data(temp_NA)    # mean monthly temperature (deg. C)
 #'
 #' # Mask grid cells that meet minimum monthly precipitation values (>= 25 mm)
-#' # for vegetation growth
+#' #   for vegetation growth
 #' precip_mask <- mask_grids(precip_NA, 25)
 #'
-#' # Mask grid cells that meet minimum monthly temperature values (>= 5 deg. C)
-#' # for growing season
+#' # Mask grid cells that meet min. monthly growing season temperature (>= 5 deg. C)
 #' GS_temp_mask <- mask_grids(temp_NA, 5)
 #'
-#' # Mask grid cells that meet minimum monthly temperature (>= 22 deg. C)
-#' # for C4-favored climate
+#' # Mask grid cells that meet min. monthly C4 temperature (>= 22 deg. C)
 #' C4_temp_mask <- mask_grids(temp_NA, 22)
 #'
 #' # Plot monthly growing season temperature masks

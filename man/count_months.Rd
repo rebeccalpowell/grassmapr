@@ -8,7 +8,7 @@ count_months(climate.mask, filename = "", ...)
 }
 \arguments{
 \item{climate.mask}{Raster* object. Mask of grid cells that meet climate
-parameters, may be result of  \code{intersect_masks} or \code{mask_grids}.
+parameters, may be result of \code{ intersect_masks} or \code{mask_grids}.
 Object should be  multi-layer (i.e., multi-date).}
 
 \item{filename}{Character. Optional output root filename passed to
@@ -28,6 +28,9 @@ Generates raster layer of counts corresponding to number of times (usually
 }
 \examples{
 \donttest{# Count number of months each grid cell meets C4 climate criteria
+
+# For this example, annual stack of monthly C4 climate masks were generated
+#   using mask_climate()
 C4_month_total <- count_months(C4_mask)
 
 # Plot monthly totals

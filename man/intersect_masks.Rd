@@ -8,11 +8,11 @@ intersect_masks(temp.mask, precip.mask, filename = "", ...)
 }
 \arguments{
 \item{temp.mask}{Raster* object. Mask of grid cells that meet minimum
-temperature threshold, may be result of  \code{mask_grids}. Object may
+temperature threshold, may be result of \code{ mask_grids}. Object may
 be single or multi-layer.}
 
 \item{precip.mask}{Raster* object. Mask of grid cells that meet minimum
-precipitation threshold, may be result of  \code{mask_grids}. Object
+precipitation threshold, may be result of \code{ mask_grids}. Object
 may be single or multi-layer.}
 
 \item{filename}{Character. Optional output root filename passed to
@@ -39,7 +39,7 @@ C4_mask <- intersect_masks(C4_temp_mask, precip_mask)
 # Generate masks of grid cells that satisfy growing-season climate criteria
 GS_mask <- intersect_masks(GS_temp_mask, precip_mask)
 
-#Plot monthly growing-season masks
+# Plot monthly growing-season masks
 plot(GS_mask)
 }
 }

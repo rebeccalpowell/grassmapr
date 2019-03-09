@@ -32,15 +32,19 @@ Raster layer. Proportion of grasses with C4 photosynthetic pathway.
 \description{
 Calculates the proportion of grasses with C4 photosynthetic pathway based on
   climate data (and, optionally, vegetation "greenness" weights). Output
-  layer represents percent C4 vegetation in each grid cell, assuming 100\%
-  "grassy world."
+  layer represents the C4 proportion of grasses in each grid cell, based on
+  ratio of C4-favorable months to growing-season months.
 }
 \examples{
 \donttest{# Calculate C4 ratio for North America, based on climate data only
+
+# C4 and Growing Season (GS) climate masks are results of mask_climate()
 C4_ratio <- calc_C4_ratio(C4_mask, GS_mask)
 
 # Calculate C4 ratio, based on climate and monthly vegetation greenness
-data(ndvi_NA)      # Load monthly vegetation index for North America
+
+# Load monthly vegetation index for North America
+data(ndvi_NA)
 C4_ratio_vi <- calc_C4_ratio(C4_mask, GS_mask, veg.index = ndvi_NA)
 
 # Plot climate-based C4 vegetation ratio

@@ -1,8 +1,8 @@
 #' Calculate d13C isoscape
 #'
 #' Applies simple mixing model to percent vegetation cover layers. User provides
-#'   d13C endmember values for each input plant functional type layer. Function
-#'   may also be applied to other endmember statistics, e.g., endmember standard
+#'   d13C endmember values for each plant functional type layer. Function may
+#'   also be applied to other endmember statistics, such as, endmember standard
 #'   deviation.
 #'
 #' @param pft.cover RasterBrick. Percent cover for each plant functional type,
@@ -20,7 +20,11 @@
 #'   each grid cell.
 #' @export
 #' @examples \donttest{# Generate d13C isoscape based on static endmembers:
-#' # Vector of d13C endmembers for each input vegetation layer
+#'
+#' # User provides PFT layer stack; may be output of calc_pft_cover()
+#' #   In this example, pft_cover stack includes: C4 herb, C3 herb, woody layers
+#'
+#' # Vector of d13C endmembers
 #' d13C_emb <- c(-12.5, -26.7, -27.0)    # C4 herb, C3 herb, woody
 #'
 #' # Apply mixing model using input PFT vegetation layers
@@ -30,7 +34,8 @@
 #' plot(d13C_iso)
 #'
 #' # Calculate weighted standard deviation of mean d13C value:
-#' # Vector of d13C endmember std. dev. (x2) for each vegetation layer
+#'
+#' # Vector of (2x) d13C endmember std. dev. for each vegetation layer
 #' d13C_emb_std <- c(2.2, 4.6, 3.4)      # C4 herb, C3 herb, woody
 #'
 #' # Apply mixing model using input PFT vegetation layers

@@ -7,8 +7,8 @@
 \format{An object of class \code{"RasterLayer"}; see
   \code{\linkS4class{Raster}}.}
 \source{
-\emph{MODIS Vegetation Continuous Fields}. Global Land Cover Facility,
-  University of Maryland: \url{http://glcf.umd.edu/data/vcf/}
+\emph{MODIS Vegetation Continuous Fields V006}. Global Land Cover
+  Facility, University of Maryland:  \url{http://glcf.umd.edu/data/vcf/}
 }
 \usage{
 data(woody_NA)

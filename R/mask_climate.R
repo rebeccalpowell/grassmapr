@@ -1,20 +1,19 @@
 #' Generate Climate Masks Based on Two Parameters
 #'
-#' Generates climate masks based on two climate variables, typically
-#'   temperature and precipitation. Grid cells reclassified as 1 satisfy both
-#'   temperature and precipitation criteria; grid cells classified as 0 fail
-#'   to satisfy criteria for at least one variable.
-#'
+#' Generates climate masks based on two climate variables, typically temperature
+#'   and precipitation. Grid cells that satisfy both criteria are reclassified
+#'   as 1; else, grid cells are reclassified as 0. Climate threshold values are
+#'   lower bound inclusive.
 #'
 #' @param temp.stack Raster* object. Each layer corresponds to a
 #'   different temporal window (e.g., month) for a temperature climate variable.
 #'   Object may be single or multi-layer.
-#' @param temp.threshold Numeric. Threshold value (lower-bound, inclusive) for
+#' @param temp.threshold Numeric. Threshold value (lower-bound inclusive) for
 #'   temperature variable.
 #' @param precip.stack Raster* object. Each layer corresponds to a
 #'   different temporal window (e.g., month) for a precipitation climate variable.
 #'   Object may be single or multi-layer.
-#' @param precip.threshold Numeric. Threshold value (lower-bound, inclusive) for
+#' @param precip.threshold Numeric. Threshold value (lower-bound inclusive) for
 #'   precipitation variable.
 #' @param filename Character. Optional output root filename passed to
 #'   \code{writeRaster}, default output file type is GeoTiff. If not specified,
@@ -25,17 +24,17 @@
 #'   type.
 #' @export
 #' @examples \donttest{# Load data for example
-#' data(temp_NA)
-#' data(precip_NA)
+#' data(temp_NA)    # mean monthly temperature (deg. C)
+#' data(precip_NA)  # mean monthly precipitation (mm)
 #'
 #' # Specify Growing Season (GS) thresholds
-#' gs_temp <- 5   # mean monthly temperature >= 5 deg. C
-#' gs_prec <- 25  # mean monthly precipitation >= 25 mm
+#' gs_temp <- 5     # mean monthly temperature >= 5 deg. C
+#' gs_prec <- 25    # mean monthly precipitation >= 25 mm
 #'
-#' # Generate monthly masks of grid cells that satisfy GS-climate criteria
+#' # Generate stack of monthly growing season masks
 #' GS_masks <- mask_climate(temp_NA, gs_temp, precip_NA, gs_precip)
 #'
-#' #Plot monthly growing-season masks
+#' # Plot monthly growing-season masks
 #' plot(GS_masks)
 #' }
 #' @seealso \link[grassmapr]{mask_grids}, \link[grassmapr]{intersect_masks},

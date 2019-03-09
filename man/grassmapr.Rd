@@ -8,9 +8,9 @@
   d13C isoscape}
 \description{
 \pkg{grassmapr} provides functions (1) to predict C3 and C4 grass cover based
-  on climate constraints; optionally, provides functions to integrate other
-  vegetation layers (e.g., \% woody cover) and (2) to generate stable carbon
-  (d13C) isoscapes for terrestrial vegetation.
+  on climate constraints; optionally, to integrate other vegetation layers
+  (e.g., \% woody cover) and (2) to generate stable carbon (d13C) isoscapes
+  for terrestrial vegetation.
 }
 \section{\strong{1. Mapping C3/C4 grass distribution}}{
 
@@ -23,7 +23,7 @@ To predict and map the C3/C4 distribution of grasses, the following functions
 \tabular{lll}{
   \code{mask_climate} \tab .... \tab To generate climate masks based on
     two climate variables, usually temperature and precipitation\cr
-  \code{calc_C4_ratio} \tab .... \tab To predict the C4 grass proportion of
+  \code{calc_C4_ratio} \tab .... \tab To predict the C4 proportion of
     grasses for each grid cell\cr
 }
 }
@@ -32,31 +32,30 @@ To predict and map the C3/C4 distribution of grasses, the following functions
 
 
 To predict and map the d13C isoscape for terrestrial vegetation, the
-  following steps should be applied sequentially. First, the user may
+  following steps should be applied sequentially. First, the C4 proportion of
+  grasses is converted to C3 and C4 percent cover layers. The user may
   optionally incorporate other vegetation layers (e.g., \% woody
-  cover, \% crop cover, etc.). Second, a simple mixing model is applied to
-  d13C endmembers for each plant functional type, based on relative cover:
+  cover, \% crop cover, etc.). Second, a simple mixing model weights d13C
+  endmembers based on relative cover of each plant functional type:
 
 \tabular{lll}{
-  \code{calc_pft_cover} \tab .... \tab To incorporate non-grass vegetation
-    layers\cr
+  \code{calc_pft_cover} \tab .... \tab To generate percent cover layers\cr
   \code{calc_del13C} \tab .... \tab To generate stable carbon isoscape\cr
 }
 }
 
 \references{
-Still CJ, \emph{et al.} 2003. Global
-  distribution of C3 and C4 vegetation: carbon cycle implications.
-  \emph{Global Biogeochemical Cycles} 17:1006.
+Still CJ et al. 2003. Global distribution of C3 and C4 vegetation:
+  carbon cycle implications. \emph{Global Biogeochemical Cycles} 17:1006.
 
 Still CJ and Powell RL. 2010. Continental-scale distributions of vegetation
-  stable carbon isotope ratios. In: West JB, \emph{ et al.} (Eds).
-  \emph{Isoscapes: understanding movement, pattern, and process on earth
-  through isotope mapping}. Dordrecht: Springer.
+  stable carbon isotope ratios. In: West JB et al. (eds). \emph{Isoscapes:
+  understanding movement, pattern, and process on earth through isotope
+  mapping}. Springer, pp.179-193.
 
-Powell RL, Yoo EH, and Still CJ. 2012. Vegetation and soil carbon-13
-  isoscapes for South America: integrating remote sensing and ecosystem
-  isotope measurements. \emph{Ecosphere} 3:109.
+Powell RL et al. 2012. Vegetation and soil carbon-13 isoscapes for South
+  America: integrating remote sensing and ecosystem isotope measurements.
+  \emph{Ecosphere} 3:109.
 }
 \author{
 Rebecca L. Powell, Daniel M. Griffith, Sydney M. Firmin

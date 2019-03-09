@@ -184,7 +184,7 @@ Note that in this example, we have elected to combine the C~4~ and C~3~ crop lay
 # d13C endmember vector for PFT layers from the literature
 d13C_emb <- c(-12.5, # C4 herb
               -26.7, # C3 herb
-              -27.0) # woody
+              -27.2) # woody
 
 # Apply mixing model to generate d13C isoscape
 d13C_iso <- calc_del13C(pft_cover, d13C_emb)
@@ -192,7 +192,7 @@ d13C_iso <- calc_del13C(pft_cover, d13C_emb)
 # Standard deviation of d13C endmember means from the literature
 d13C_std <- c(1.1, # C4 herb
               2.3, # C3 herb
-              1.7) # woody
+              2.5) # woody
 
 # Calculate weighted standard deviation of mean d13C values
 d13C_iso_std <- calc_del13C(pft_cover, d13C_std)

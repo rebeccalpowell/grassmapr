@@ -26,8 +26,8 @@
 #'   isoscapes for South America: integrating remote sensing and ecosystem
 #'   isotope measurements. \emph{Ecosphere} 3:109.
 #'
-#' @source \emph{MODIS Vegetation Continuous Fields}. Global Land Cover Facility,
-#'   University of Maryland: \url{http://glcf.umd.edu/data/vcf/}
+#' @source \emph{MODIS Vegetation Continuous Fields V006}. Global Land Cover
+#'   Facility, University of Maryland:  \url{http://glcf.umd.edu/data/vcf/}
 #'
 #' @examples
 #' # Read in the data

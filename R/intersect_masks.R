@@ -6,10 +6,10 @@
 #'   reclassified as 0.
 #'
 #' @param temp.mask Raster* object. Mask of grid cells that meet minimum
-#'   temperature threshold, may be result of  \code{mask_grids}. Object may
+#'   temperature threshold, may be result of \code{ mask_grids}. Object may
 #'   be single or multi-layer.
 #' @param precip.mask Raster* object. Mask of grid cells that meet minimum
-#'   precipitation threshold, may be result of  \code{mask_grids}. Object
+#'   precipitation threshold, may be result of \code{ mask_grids}. Object
 #'   may be single or multi-layer.
 #' @param filename Character. Optional output root filename passed to
 #'   \code{writeRaster}, default output file type is GeoTiff. If not specified,
@@ -25,7 +25,7 @@
 #' # Generate masks of grid cells that satisfy growing-season climate criteria
 #' GS_mask <- intersect_masks(GS_temp_mask, precip_mask)
 #'
-#' #Plot monthly growing-season masks
+#' # Plot monthly growing-season masks
 #' plot(GS_mask)
 #' }
 #' @seealso \link[grassmapr]{mask_grids}, \link[raster]{overlay}.

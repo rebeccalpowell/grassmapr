@@ -10,7 +10,7 @@
 #'    see \code{\linkS4class{Raster}}.
 #' @keywords datasets
 #' @references New M, \emph{et al.} 2002. A high-resolution data set of surface
-#' #'   climate over global land areas. \emph{Climate Research} 21:1-25.
+#'    climate over global land areas. \emph{Climate Research} 21:1-25.
 #' @source \emph{CRU CL v.2.0}. Climatic Research Unit, University of East
 #'   Anglia: \url{http://www.cru.uea.ac.uk/data/}
 #' @examples

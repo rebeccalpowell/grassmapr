@@ -13,10 +13,10 @@ calc_pft_cover(C4.ratio, GS.mask, veg.layers = NULL, C4.flag = NULL,
 \code{calc_C4_ratio}.}
 
 \item{GS.mask}{RasterBrick. Monthly mask of grid cells that meet growing
-season criteria, result of \code{mask_grids}  and \code{intersect_masks}.}
+season criteria, result of \code{mask_climate}.}
 
-\item{veg.layers}{Raster* object. Each layer corresponds to non-herbaceous
-cover or agriculatural crop layers. Default value = NULL.}
+\item{veg.layers}{Raster* object. Layers correspond to plant functional types
+that cannot be predicted directly from climate. Default value = NULL.}
 
 \item{C4.flag}{Numeric. Vector with length equal to number of layers in
 \code{veg.layers} object, with C4 vegetation flag = 1, C3 vegetation flag
@@ -27,8 +27,8 @@ cover or agriculatural crop layers. Default value = NULL.}
 vegetation flag = 0. Default value = NULL.}
 
 \item{veg.weight}{Logical. User may optionally specify to weight layers in
-\code{veg.layers} so that total vegetation per pixel is constrained to
-100\%. Default value = FALSE.}
+\code{veg.layers} so that total per-pixel vegetation cover is constrained
+to 100\%. Default value = FALSE.}
 
 \item{filename}{Character. Optional output root filename passed to
 \code{writeRaster}, default output file type is GeoTiff. If not specified,
@@ -40,11 +40,11 @@ output is written to a temporary file.}
 = 100.}
 }
 \value{
-RasterBrick. Each layer corresponds to percent vegetation cover;
-  stack layers are ordered as follows - Layer[[1]]: C4 herbaceous, Layer[[2]]:
-  C3 herbaceous, Layer[[3]], ...: optional vegetation layer[s] provided by
-  user. C4/C3 herbaceous layers may combine C4/C3 grass + C4/C3 crop cover,
-  if specified by user.
+RasterBrick. Each layer corresponds to percent vegetation cover,
+  ordered as follows - Layer[[1]]: C4 herbaceous, Layer[[2]]: C3 herbaceous,
+  Layer[[3]], ...: optional vegetation layer[s] provided by the user. C4/C3
+  herbaceous layers may combine C4/C3 grass + C4/C3 crop cover, if specified
+  by user.
 }
 \description{
 Generates plant functional type (PFT) cover layers, starting with an inital
@@ -52,18 +52,18 @@ Generates plant functional type (PFT) cover layers, starting with an inital
   are provided by the user, total grass cover is adjusted by (1) subtracting
   the sum of the other vegetation layers from 100\% grass cover, and (2)
   partitioning the remaining percent grass cover into C3 and C4 components by
-  multiplying by the C4 grass ratio (result of \code{calc_C4_ratio}). If C3/C4
-  crop cover layers are provided, the user may add these to respective C3/C4
-  grass cover layers.
+  multiplying the C4 grass ratio (result of \code{calc_C4_ratio}). If C3/C4
+  crop cover layers are provided by the user, they are added to the C3/C4
+  grass cover layers, respectively.
 }
 \examples{
 # Load additional vegetation cover layers for North America to use
-  in this example
+#   in this example
 data(woody_NA)    # percent woody vegetation cover
 data(cropC3_NA)   # percent C3 crop cover
 data(cropC4_NA)   # percent C4 crop cover
 \donttest{
-# Create raster stack of other (non-grassy) vegetation layers
+# Create raster stack of other (non-grass) vegetation layers
 veg_layers <- stack(cropC4_NA, cropC3_NA, woody_NA)
 
 # Vector to flag layers that correspond to C4 vegetation
@@ -73,10 +73,11 @@ C4_flag <- c(1, 0, 0)
 herb_flag <- c(1, 1, 0)
 
 # Generate plant functional type (PFT) vegetation layers
+#   C4 and Growing Season (GS) climate masks are results of mask_climate()
 C4_ratio <- calc_C4_ratio(C4_mask, GS_mask)
-pft_cover <- calc_pft_cover(C4_ratio, veg_layers, C4_flag, herb_flag)
+pft_cover <- calc_pft_cover(C4_ratio, GS_mask, veg_layers, C4_flag, herb_flag)
 
-# Plot PFT vegetation cover layers
+# Plot annualized PFT vegetation cover layers
 plot(pft_cover)
 }
 }
