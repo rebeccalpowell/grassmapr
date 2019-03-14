@@ -1,8 +1,15 @@
-.Rproj.user
+# History files
 .Rhistory
+
+# R data files from past sessions
 .RData
+
+# RStudio Files
+.Rproj.user
 .Ruserdata
-background
-backup
-scratch
-tests
+
+# Work folders
+background/
+backup/
+scratch/
+tests/
