@@ -30,7 +30,7 @@ GS_masks <- mask_climate(temp.stack = temp_NA,
 GS_month_total <- count_months(GS_masks)
 C4_month_total <- count_months(C4_masks)
 
-# Plot GS month total, C4 month total
+# Plot C4 month total, GS month total
 par(mfrow = c(1,2))
 plot(C4_month_total)
 plot(GS_month_total)

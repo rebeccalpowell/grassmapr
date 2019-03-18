@@ -1,8 +1,9 @@
 ---
 title: "Introduction to grassmapr"
-author: 'Daniel M Griffith, Rebecca L Powell, Sydney Firmin, Jen Cotton, & Christopher J Still'
-date: "October 2018"
-output: rmarkdown::html_vignette
+author: "Daniel M Griffith, Rebecca L Powell, Sydney Firmin, Jen Cotton & Christopher J Still"
+date: "December 2018"
+output: 
+  rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Introduction to grassmapr}
   %\VignetteEngine{knitr::rmarkdown}

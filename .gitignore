@@ -1,13 +1,12 @@
+inst/doc
 # History files
 .Rhistory
 
 # R data files from past sessions
 .RData
-
 # RStudio Files
 .Rproj.user
 .Ruserdata
-
 # Work folders
 background/
 backup/
