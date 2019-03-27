@@ -10,8 +10,8 @@
 #' @param d13C.embs Numeric. Vector of length equal to number of layers in
 #'   \code{pft.cover}. Values correspond to d13C endmembers for each
 #'   \code{pft.cover} vegetation type.
-#' @param scale.factor Numeric. Scale factor for vegetation cover values. Default
-#'   value = 100.
+#' @param scale.factor Numeric. Scale factor for vegetation cover values.
+#'   Default value = 100.
 #' @param filename Character. Optional output root filename passed to
 #'   \code{writeRaster}, default output file type is GeoTiff. If not specified,
 #'   output is written to a temporary file.
@@ -58,13 +58,15 @@ calc_del13C <- function(pft.cover, d13C.embs, scale.factor = 100,
     stop("Length of d13C.embs vector does not equal nlayers in pft.cover")
   }
 
+  # Core function
+  d13C_iso <- overlay(calc(pft.cover, function(x) x*d13C.embs/scale.factor),
+    fun = "sum")
+
   if(filename != "") {
     outfile <- paste0(trim(filename), ".tif")
-    overlay(calc(pft.cover, function(x) x*d13C.embs/scale.factor), fun = "sum",
-      outfile, format = "GTiff", datatype = "INT2U", overwrite = TRUE)
+    writeRaster(d13C_iso, filename = outfile, format = "GTiff",
+      overwrite = TRUE)
   } else {
-    d13C_iso <- overlay(calc(pft.cover, function(x) x*d13C.embs/scale.factor),
-      fun = "sum")
     return(d13C_iso)
   }
 }

@@ -46,15 +46,14 @@ mask_grids <- function(climate.stack, threshold, filename = "", ...) {
 # Function masks data values >= threshold for gridded climate data
 # Output is a rasterStack, nl = nlayers of the input rasterStack
 
+  climate_mask <- reclassify(climate.stack,
+    c(-Inf,threshold,0, threshold,Inf,1))
+
   if (filename != "") {
     outfile <- paste0(trim(filename), ".tif")
-    climate_mask <- reclassify(climate.stack,
-      c(-Inf,threshold,0, threshold,Inf,1),
-      outfile, format = "GTiff", datatype = "INT1U",
-      overwrite = TRUE)
+    writeRaster(climate_mask, outfile, format = "GTiff",
+      datatype = "INT1U", overwrite = TRUE)
   } else {
-    climate_mask <- reclassify(climate.stack,
-      c(-Inf,threshold,0, threshold,Inf,1))
     return(climate_mask)
   }
 }

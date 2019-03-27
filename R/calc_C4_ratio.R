@@ -66,18 +66,17 @@ calc_C4_ratio <- function(C4.mask, GS.mask, veg.index = NULL,
     stop("Vegetation index has incorrect number of layers")
   }
 
+  # Core function
+  C4_ratio <- overlay(
+    calc(overlay(veg.index, C4.mask, fun = "*"), fun = sum),
+    calc(overlay(veg.index, GS.mask, fun = "*"), fun = sum),
+    fun = function(x, y) {ifelse(y == 0, 0, x/y)})
+
   if(filename != "") {
     outfile <- paste0(trim(filename), ".tif")
-    C4_ratio <- overlay(
-      calc(overlay(veg.index, C4.mask, fun = "*"), fun = sum),
-      calc(overlay(veg.index, GS.mask, fun = "*"), fun = sum),
-      fun = function(x, y) {ifelse(y == 0, 0, x/y)},
-      filename = outfile, format = "GTiff", overwrite = TRUE)
+    writeRaster(C4_ratio, filename = outfile, format = "GTiff",
+      overwrite = TRUE)
   } else {
-    C4_ratio <- overlay(
-      calc(overlay(veg.index, C4.mask, fun = "*"), fun = sum),
-      calc(overlay(veg.index, GS.mask, fun = "*"), fun = sum),
-      fun = function(x, y) {ifelse(y == 0, 0, x/y)})
     return(C4_ratio)
   }
 }

@@ -96,6 +96,7 @@ calc_pft_cover <- function(C4.ratio, GS.mask, veg.layers = NULL, C4.flag = NULL,
         User may set function parameter veg.weight=TRUE to normalize veg.layers.
         This will constrain per-pixel values to 100%.")
       }
+      rm(veg_sum)  # Clean up
     }
 
   # Step 1. Initialize vegetation cover as "all-herbaceous world."
@@ -154,13 +155,13 @@ calc_pft_cover <- function(C4.ratio, GS.mask, veg.layers = NULL, C4.flag = NULL,
       return(x*(1.0-y))})
   }
 
-  rm(null_herb, C4_herb_index, C3_herb_index)
+  rm(null_herb)  # Clean up
 
   # Step 4: Create brick of vegetation PFT cover; add in non-herbaceous layers
   woody_index <- which((herb.flag == 0))
   if(length(woody_index) != 0) {
     pft_cover <- brick(C4_herb, C3_herb, veg_layers[[woody_index]])
-    names(pft_cover) <- c("C4_herb", "C3_herb", names(veg.layers[[woody_index]]))
+    names(pft_cover) <- c("C4_herb","C3_herb", names(veg.layers[[woody_index]]))
   } else {
     pft_cover <- brick(C4_herb, C3_herb)
     names(pft_cover) <- c("C4_herb", "C3_herb")
@@ -172,12 +173,10 @@ calc_pft_cover <- function(C4.ratio, GS.mask, veg.layers = NULL, C4.flag = NULL,
 
   if(filename != "") {
     outfile <- paste0(trim(filename), ".tif")
-    writeRaster(pft_cover, outfile, format = "GTiff", datatype = "FLT4S",
-      overwrite = TRUE)
+    writeRaster(pft_cover, filename = outfile, format = "GTiff",
+      datatype = "FLT4S", overwrite = TRUE)
   } else {
     return(pft_cover)
   }
-
-  # Clean up
-  rm(C4_herb, C3_herb, woody_index, outfile)
+  rm(C4_herb, C3_herb)  # Clean up
 }

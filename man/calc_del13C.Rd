@@ -15,8 +15,8 @@ may be result of \code{calc_pft_cover}.}
 \code{pft.cover}. Values correspond to d13C endmembers for each
 \code{pft.cover} vegetation type.}
 
-\item{scale.factor}{Numeric. Scale factor for vegetation cover values. Default
-value = 100.}
+\item{scale.factor}{Numeric. Scale factor for vegetation cover values.
+Default value = 100.}
 
 \item{filename}{Character. Optional output root filename passed to
 \code{writeRaster}, default output file type is GeoTiff. If not specified,

@@ -43,18 +43,16 @@ intersect_masks <- function(temp.mask, precip.mask, filename = "", ...) {
     stop("Climate masks have different number of layers")
   }
 
+  # Core function:
+  intersect_mask <- overlay(temp.mask, precip.mask,
+    fun = function(x, y) {return(x*y)})
+
   # If file name provided, write to disk; else process in memory/temp file.
   if(filename != "") {
     outfile <- paste0(trim(filename), ".tif")
-    intersect_mask <- overlay(temp.mask, precip.mask,
-        fun = function(x, y) {return(x*y)},
-        filename = outfile,
-        format = "GTiff",
-        datatype = "INT1U",
-        overwrite = TRUE)
+    writeRaster(intersect_mask, outfile, format = "GTiff",
+      datatype = "INT1U", overwrite = TRUE)
   } else {
-    intersect_mask <- overlay(temp.mask, precip.mask,
-      fun = function(x, y) {return(x*y)})
     return(intersect_mask)
   }
 }

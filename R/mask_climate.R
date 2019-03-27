@@ -54,18 +54,16 @@ mask_climate <- function(temp.stack, temp.threshold, precip.stack,
     stop("Climate stacks have different number of layers")
   }
 
+  # Core function:
+  climate_mask <- intersect_masks(mask_grids(temp.stack, temp.threshold),
+    mask_grids(precip.stack, precip.threshold))
+
   # If file name provided, write to disk; else process in memory/temp file.
   if(filename != "") {
     outfile <- paste0(trim(filename), ".tif")
-    climate_mask <- intersect_masks(mask_grids(temp.stack, temp.threshold),
-        mask_grids(precip.stack, precip.threshold),
-        filename = outfile,
-        format = "GTiff",
-        datatype = "INT1U",
-        overwrite = TRUE)
+    writeRaster(climate_mask, outfile, format = "GTiff",
+      datatype = "INT1U", overwrite = TRUE)
   } else {
-    climate_mask <- intersect_masks(mask_grids(temp.stack, temp.threshold),
-      mask_grids(precip.stack, precip.threshold))
     return(climate_mask)
   }
 }

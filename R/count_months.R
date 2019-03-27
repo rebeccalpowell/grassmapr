@@ -33,15 +33,14 @@ count_months <- function(climate.mask, filename = "", ...) {
 
   # If file name provided, write to disk; else process in memory/temp files.
 
+  # Core function:
+  month_count <- sum(climate.mask)
+
   if(filename != "") {
     outfile <- paste0(trim(filename), ".tif")
-    month_count <- overlay(climate.mask, fun = function(x) {return(sum(x))},
-      filename = outfile,
-      format = "GTiff",
-      datatype = "INT1U",
-      overwrite = TRUE)
-  } else {
-    month_count <- sum(climate.mask)
+    writeRaster(month_count, filename = outfile, format = "GTiff",
+      datatype = "INT1U", overwrite = TRUE)
+    } else {
     return(month_count)
     }
   }
