@@ -20,12 +20,12 @@
 #'   data type.
 #' @export
 #' @examples \donttest{# Climate data for North America to use in this example
-#' data(precip_NA)  # mean monthly precipitation (mm)
+#' data(prec_NA)  # mean monthly precipitation (mm)
 #' data(temp_NA)    # mean monthly temperature (deg. C)
 #'
 #' # Mask grid cells that meet minimum monthly precipitation values (>= 25 mm)
 #' #   for vegetation growth
-#' precip_mask <- mask_grids(precip_NA, 25)
+#' precip_mask <- mask_grids(prec_NA, 25)
 #'
 #' # Mask grid cells that meet min. monthly growing season temperature (>= 5 deg. C)
 #' GS_temp_mask <- mask_grids(temp_NA, 5)

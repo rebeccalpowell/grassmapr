@@ -42,14 +42,14 @@ Generates climate masks based on two climate variables, typically temperature
 \examples{
 \donttest{# Load data for example
 data(temp_NA)    # mean monthly temperature (deg. C)
-data(precip_NA)  # mean monthly precipitation (mm)
+data(prec_NA)  # mean monthly precipitation (mm)
 
 # Specify Growing Season (GS) thresholds
-gs_temp <- 5     # mean monthly temperature >= 5 deg. C
-gs_prec <- 25    # mean monthly precipitation >= 25 mm
+GS_temp <- 5     # mean monthly temperature >= 5 deg. C
+GS_prec <- 25    # mean monthly precipitation >= 25 mm
 
 # Generate stack of monthly growing season masks
-GS_masks <- mask_climate(temp_NA, gs_temp, precip_NA, gs_precip)
+GS_masks <- mask_climate(temp_NA, GS_temp, prec_NA, GS_prec)
 
 # Plot monthly growing-season masks
 plot(GS_masks)

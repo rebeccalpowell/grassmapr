@@ -22,7 +22,7 @@
 #' @examples \donttest{# Generate d13C isoscape based on static endmembers:
 #'
 #' # User provides PFT layer stack; may be output of calc_pft_cover()
-#' #   In this example, pft_cover stack includes: C4 herb, C3 herb, woody layers
+#' # In this example, pft_cover stack includes: C4 herb, C3 herb, woody layers
 #'
 #' # Vector of d13C endmembers
 #' d13C_emb <- c(-12.5, -26.7, -27.0)    # C4 herb, C3 herb, woody

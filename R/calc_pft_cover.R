@@ -52,7 +52,7 @@
 #' herb_flag <- c(1, 1, 0)
 #'
 #' # Generate plant functional type (PFT) vegetation layers
-#' #   C4 and Growing Season (GS) climate masks are results of mask_climate()
+#' # C4 and Growing Season (GS) climate masks are results of mask_climate()
 #' C4_ratio <- calc_C4_ratio(C4_mask, GS_mask)
 #' pft_cover <- calc_pft_cover(C4_ratio, GS_mask, veg_layers, C4_flag, herb_flag)
 #'
