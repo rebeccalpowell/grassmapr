@@ -8,11 +8,11 @@ The `grassmapr` package has two related objectives: (i) to predict the spatial d
 Background
 ----------
 
-The primary driver of *δ*<sup>13</sup>C spatial variation in terrestrial plant tissue is the greater isotopic fractionation in C<sub>3</sub> plants compared to C<sub>4</sub> plants. The physiologically based crossover temperature model explains the turnover from C<sub>3</sub> to C<sub>4</sub> plants along gradients of temperature (Collatz et al. 1998, Ehleringer et al. 1997, Still et al. 2003).
+The primary driver of *δ*<sup>13</sup>C spatial variation in terrestrial plant tissue is the greater isotopic fractionation in C<sub>3</sub> plants compared to C<sub>4</sub> plants. The physiologically based crossover temperature model explains the turnover from C<sub>3</sub> to C<sub>4</sub> plants along gradients of temperature (Ehleringer et al. 1997, Collatz et al. 1998, Still et al. 2003).
 
-The `grassmapr` package combines the crossover temperature model with gridded climate and land-cover data to predict the relative abundance of C<sub>3</sub> and C<sub>4</sub> vegetation distribution. Isotopic endmember values are then applied to map plant *δ*<sup>13</sup>C, resulting in a spatially continuous representation, or isoscape. These layers are useful for understanding grass biogeography (e.g., Griffith et al. 2015, Powell et al. 2012) and for studies seeking to identify the movement of animals (e.g., Bowen & West 2008, Hobson 1999).
+The `grassmapr` package combines the crossover temperature model with gridded climate and land-cover data to predict the relative abundance of C<sub>3</sub> and C<sub>4</sub> vegetation distribution. Isotopic endmember values are then applied to map plant *δ*<sup>13</sup>C, resulting in a spatially continuous representation, or isoscape. These layers are useful for understanding grass biogeography (e.g., Powell et al. 2012, Griffith et al. 2015) and for studies seeking to identify the movement of animals (e.g., Hobson 1999, Bowen & West 2008).
 
-Note that *δ*<sup>13</sup>C also varies with photosynthetic subtype in C<sub>4</sub> plants and with rainfall and water availability in woody C<sub>3</sub> plants (Cerling & Harris 1999, Diefendorf et al. 2010; Kohn 2010). Currently, `grassmapr` functions neglect these secondary sources of spatial variation.
+Note that *δ*<sup>13</sup>C also varies with photosynthetic subtype in C<sub>4</sub> plants and with rainfall and water availability in woody C<sub>3</sub> plants (Cerling & Harris 1999, Diefendorf et al. 2010, Kohn 2010). Currently, `grassmapr` functions neglect these secondary sources of spatial variation.
 
 Installation
 ------------

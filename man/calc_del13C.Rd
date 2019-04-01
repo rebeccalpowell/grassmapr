@@ -4,8 +4,7 @@
 \alias{calc_del13C}
 \title{Calculate d13C isoscape}
 \usage{
-calc_del13C(pft.cover, d13C.embs, scale.factor = 100, filename = "",
-  ...)
+calc_del13C(pft.cover, d13C.embs, scale.factor = 100, filename = "", ...)
 }
 \arguments{
 \item{pft.cover}{RasterBrick. Percent cover for each plant functional type,

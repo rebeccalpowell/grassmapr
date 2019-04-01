@@ -26,20 +26,20 @@ vegetation layers (e.g., \% woody cover, \% crop, etc.).
 The primary driver of $\delta$^13^C spatial variation in terrestrial plant 
 tissue is the greater isotopic fractionation in C~3~ plants compared to C~4~ 
 plants. The physiologically based crossover temperature model explains the 
-turnover from C~3~ to C~4~ plants along gradients of temperature (Collatz et al. 
-1998, Ehleringer et al. 1997, Still et al. 2003).
+turnover from C~3~ to C~4~ plants along gradients of temperature (Ehleringer et 
+al. 1997, Collatz et al. 1998, Still et al. 2003).
 
 The `grassmapr` package combines the crossover temperature model with gridded 
 climate and land-cover data to predict the relative abundance of C~3~ and C~4~ 
 vegetation distribution. Isotopic endmember values are then applied to map plant 
 $\delta$^13^C, resulting in a spatially continuous representation, or isoscape. 
-These layers are useful for understanding grass biogeography (e.g., Griffith et 
-al. 2015, Powell et al. 2012) and for studies seeking to identify the movement 
-of animals (e.g., Bowen & West 2008, Hobson 1999).
+These layers are useful for understanding grass biogeography (e.g., Powell et al. 
+2012, Griffith et al. 2015) and for studies seeking to identify the movement 
+of animals (e.g., Hobson 1999, Bowen & West 2008).
 
 Note that $\delta$^13^C also varies with photosynthetic subtype in C~4~ plants 
 and with rainfall and water availability in woody C~3~ plants (Cerling & 
-Harris 1999, Diefendorf et al. 2010; Kohn 2010). Currently, `grassmapr` 
+Harris 1999, Diefendorf et al. 2010, Kohn 2010). Currently, `grassmapr` 
 functions neglect these secondary sources of spatial variation. 
 
 ## Installation

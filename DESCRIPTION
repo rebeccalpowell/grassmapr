@@ -5,9 +5,8 @@ Version: 0.3.0
 Author: Rebecca L. Powell, Sydney M. Firmin, Daniel Griffith
 Maintainer: Rebecca L. Powell <rebecca.l.powell@du.edu> 
 Description: Maps distribution of C3 and C4 grass cover, predicted using input 
-    climate layers and crossover temperature parameters. Optionally accepts 
-    input of other vegetation layers (%woody, %crop, %other, ...) and generates 
-    stable carbon (d13C) isoscape layer.
+    climate layers and crossover temperature parameters. Models plant stable 
+    carbon (d13C) *isoscapes* by applying isotopic endmembers.
 Depends: R (>= 3.5.1)
 License: GPL-3
 Encoding: UTF-8
