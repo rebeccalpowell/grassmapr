@@ -1,4 +1,4 @@
-# grassmapr: Example Script - North America
+# grassmapr: Example Script to Generate North America isoscape
 
 # Load North America climate data
 data(temp_NA)   # mean monthly temperature (deg. C)
