@@ -185,20 +185,20 @@ plot(d13C_iso_std, main = expression(StDev~{delta}^13*C~"\211"),
 References
 ----------
 
-Bowen, G. J. and West, J. B. 2008. Isotope landscapes for terrestrial migration research. â€“ In: Hobson, K. A. and Wassenaar, L. I. (eds.), Tracking Animal Migration with Stable Isotopes. Academic, pp. 79-105.
+Bowen, G. J. and West, J. B. 2008. Isotope landscapes for terrestrial migration research. -- In: Hobson, K. A. and Wassenaar, L. I. (eds.), Tracking Animal Migration with Stable Isotopes. Academic, pp. 79-105.
 
-Collatz, G. J. et al. 1998. Effects of climate and atmospheric CO<sub>2</sub> partial pressure on the global distribution of C<sub>4</sub> grasses: present, past, and future. â€“ Oecologia 114: 441-454.
+Collatz, G. J. et al. 1998. Effects of climate and atmospheric CO<sub>2</sub> partial pressure on the global distribution of C<sub>4</sub> grasses: present, past, and future. -- Oecologia 114: 441-454.
 
-Ehleringer, J. R. et al. 1997. C<sub>4</sub> photosynthesis, atmospheric CO<sub>2</sub>, and climate. â€“ Oecologia 112: 285-299.
+Ehleringer, J. R. et al. 1997. C<sub>4</sub> photosynthesis, atmospheric CO<sub>2</sub>, and climate. -- Oecologia 112: 285-299.
 
-Griffith, D. M. et al. 2015. Biogeographically distinct controls on C<sub>3</sub> and C<sub>4</sub> grass distributions: merging community and physiological ecology. â€“ Global Ecol. Biogeogr. 24: 304-313.
+Griffith, D. M. et al. 2015. Biogeographically distinct controls on C<sub>3</sub> and C<sub>4</sub> grass distributions: merging community and physiological ecology. -- Global Ecol. Biogeogr. 24: 304-313.
 
-Hobson, K. A. 1999. Tracing origins and migration of wildlife using stable isotopes: a review. â€“ Oecologia 120: 314-326.
+Hobson, K. A. 1999. Tracing origins and migration of wildlife using stable isotopes: a review. -- Oecologia 120: 314-326.
 
-Kohn, Matthew J. 2010. Carbon isotope compositions of terrestrial C<sub>3</sub> plants as indicators of (paleo) ecology and (paleo) climate. â€“ Proc. Natl. Acad. Sci. 107: 19691â€“19695.
+Kohn, Matthew J. 2010. Carbon isotope compositions of terrestrial C<sub>3</sub> plants as indicators of (paleo) ecology and (paleo) climate. -- Proc. Natl. Acad. Sci. 107: 19691â€“19695.
 
-Powell, R. L. et al. 2012. Vegetation and soil carbon-13 isoscapes for South America: integrating remote sensing and ecosystem isotope measurements. â€“ Ecosphere 3: 109.
+Powell, R. L. et al. 2012. Vegetation and soil carbon-13 isoscapes for South America: integrating remote sensing and ecosystem isotope measurements. -- Ecosphere 3: 109.
 
-Still, C. J. et al. 2003. Global distribution of C<sub>3</sub> and C<sub>4</sub> vegetation: carbon cycle implications. â€“ Global Biogeochem. Cycles 17: 1006.
+Still, C. J. et al. 2003. Global distribution of C<sub>3</sub> and C<sub>4</sub> vegetation: carbon cycle implications. -- Global Biogeochem. Cycles 17: 1006.
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
