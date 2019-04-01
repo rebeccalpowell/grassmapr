@@ -199,6 +199,4 @@ Kohn, Matthew J. 2010. Carbon isotope compositions of terrestrial C<sub>3</sub> 
 
 Powell, R. L. et al. 2012. Vegetation and soil carbon-13 isoscapes for South America: integrating remote sensing and ecosystem isotope measurements. -- Ecosphere 3: 109.
 
-Still, C. J. et al. 2003. Global distribution of C<sub>3</sub> and C<sub>4</sub> vegetation: carbon cycle implications. -- Global Biogeochem. Cycles 17: 1006.
-
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+Still, C. J. et al. 2003. Global distribution of C<sub>3</sub> and C<sub>4</sub> vegetation: carbon cycle implications. -- Global Biogeochem. Cycles 17: 1006. <br>
