@@ -1,21 +1,21 @@
 Introduction to grassmapr
 ================
-Daniel M Griffith, Rebecca L Powell, Sydney Firmin, Jen Cotton & Christopher J Still
+Daniel M Griffith, Rebecca L Powell, Sydney M Firmin, Jen M Cotton, & Christopher J Still
 December 2018
 
 Introduction & Objectives
 -------------------------
 
-This vignette serves as an introduction to the grassmapr R package. The workflow that follows also requires learning some basic fuctionality in the raster R package.
+This vignette serves as an introduction to the `grassmapr` R package. The workflow that follows also requires learning some basic fuctionality in the `raster` R package.
 
-Our goal is to predict plant tissue *δ*<sup>13</sup>C variation across a landscape. The primary driver of variation in plant *δ*<sup>13</sup>C is the greater isotopic fractionation in C<sub>3</sub> plants compared to C<sub>4</sub> plants. The crossover temperature model is a physiologically based model that explains the turnover from C<sub>3</sub> to C<sub>4</sub> plants along gradients of temperature (Ehleringer et al. 1997, Collatz et al. 1998, Still et al., 2003).
+Our goal is to predict plant tissue *δ*<sup>13</sup>C variation across a landscape. The primary driver of variation in plant *δ*<sup>13</sup>C is the greater isotopic fractionation in C<sub>3</sub> plants compared to C<sub>4</sub> plants. The physiologically based crossover temperature model explains the turnover from C<sub>3</sub> to C<sub>4</sub> plants along gradients of temperature (Ehleringer et al. 1997, Collatz et al. 1998, Still et al. 2003).
 
 We will combine the crossover temperature model with data on land cover and climate to produce map of C<sub>3</sub> and C<sub>4</sub> plants in North America. Then, we will apply isotopic endmember values to produce a spatially continuous representation of leaf *δ*<sup>13</sup>C distribution across the land surface. These layers are useful for understanding grass biogeography (e.g., Powell et al. 2012, Griffith et al. 2015) and for studies seeking to identify the movement of animals (e.g., Hobson 1999, Bowen & West 2008).
 
 Load North America example data
 -------------------------------
 
-First, Load the required R libraries:
+First, load the required R libraries:
 
 ``` r
 library(raster)
@@ -46,7 +46,7 @@ plot(annual_prec,
   main = expression(paste("Total Annual Precipitation (x10"^2, "mm)", sep = "")))
 ```
 
-![](grassmapr_files/figure-markdown_github/unnamed-chunk-3-1.png) <br> <br> Before we proceed, we should ensure that all data have the same geographic extent, spatial resolution, and projection. <br>
+![](grassmapr_files/figure-markdown_github/unnamed-chunk-3-1.png) <br> <br> Before we proceed, we should ensure that all input data have the same geographic extent, spatial resolution, and projection. <br>
 
 ``` r
 compareRaster(temp_NA,
@@ -57,14 +57,14 @@ compareRaster(temp_NA,
               cropC3_NA)
 ```
 
-If any of these layers had a different extent or resolution, we could apply the function raster::resample() to make the layers compatible with each other.
+If any of these layers had a different extent or resolution, we could apply the function raster::resample() to make the layers compatible with each other. If any raster layer had a different projection, the raster::projectRaster() function can be applied to transform the layer's projection.
 
-A Workflow to produce a C<sub>3</sub> and C<sub>4</sub> distribution map for North America
-------------------------------------------------------------------------------------------
+Workflow to produce a C<sub>3</sub> and C<sub>4</sub> distribution map for North America
+----------------------------------------------------------------------------------------
 
 First, we will set a C<sub>4</sub> temperature threshold based on the crossover temperature model. Note: In this example we are using mean monthly temperature as our climatic variable, but we could set a threshold based on other temperature variables, such as maximum monthly temperature.
 
-Second, we will set a minimum growing season temperature threshold, as well as a minimum monthly precipitation threshold. The latter screens for locations that have sufficient moisture to support vegetation growth for a given month - that is, we exclude locations that have insufficient precipitation for plant growth for a given month - for example, deserts and Mediterranean climates. <br>
+Second, we will set a minimum growing season temperature threshold, as well as a minimum monthly precipitation threshold. The latter screens for locations that have sufficient moisture to support vegetation growth for a given month - as a result, locations that lack sufficient precipitation for plant growth in a given month are excluded from further analysis - for example, deserts and Mediterranean climates. <br>
 
 ``` r
 # Set a C4 temperature threshold based on the COT model (>= 22 deg. C)
@@ -75,7 +75,7 @@ GS_temp <- 5
 GS_prec <- 25
 ```
 
-Next, we create two stacks of climate mask layers to represent (i) months that favor C<sub>4</sub> plants and (ii) months that meet the growing season (GS) criteria. Note: These masks indicate grid cells to retain for further analysis (classified as 1) and grid cells to exclude (classified as 0). <br>
+Next, we create two stacks of climate mask layers to represent (i) months that favor C<sub>4</sub> plants and (ii) months that meet the growing season (GS) criteria. Note: These masks classify grid cells that meet climate criteria as 1, and grid cells that fail one or more criteria as 0. <br>
 
 ``` r
 # Generate monthly C4 climate masks
@@ -105,23 +105,23 @@ plot(C4_month_total,
   main = expression("C4 Climate (# months)"), zlim = c(0, 12))
 ```
 
-![](grassmapr_files/figure-markdown_github/unnamed-chunk-7-1.png) <br> <br> With these two monthly climate masks - and, optionally, monthly NDVI layers - we can calculate the proportion of the herbaceous layer that is C<sub>4</sub> (i.e., the C<sub>4</sub> *potential*). Note: This is different than predicting *actual* vegetation cover. <br>
+![](grassmapr_files/figure-markdown_github/unnamed-chunk-7-1.png) <br> <br> With these two monthly climate masks - and, optionally, layers of monthly "greenness" weights - we can calculate the proportion of the herbaceous layer that is C<sub>4</sub> (i.e., the C<sub>4</sub> *potential*). Note: This is different than predicting *actual* vegetation cover. <br>
 
 ``` r
 # Calculate C4 proportion based on C4 climate only
 C4_ratio <- calc_C4_ratio(C4_masks, GS_masks)
 
-# Optionally: Calculate C4 proportion based on C4 climate AND vegetation productivity
+# Optionally: Calculate C4 proportion based on C4 climate AND vegetation "greenness"
 C4_ratio_vi <- calc_C4_ratio(C4_masks, GS_masks, veg.index = ndvi_NA)
   
 par(mfrow = c(1,2))
 plot(C4_ratio, main = expression(paste("Herbaceous C"[4]~"proportion"))) 
 ```
 
-![](grassmapr_files/figure-markdown_github/unnamed-chunk-8-1.png) <br> <br> To generate representations of *actual* vegetation cover, we can combine the herbaceous C<sub>4</sub> proportion with other vegetation layers such as woody cover and crop cover. *Note: The user must provide any vegetation layers representing * *actual land cover, and these layers must match the geographic extent, spatial * *resolution, and projection of the climate layers.* <br>
+![](grassmapr_files/figure-markdown_github/unnamed-chunk-8-1.png) <br> <br> To generate representations of *actual* vegetation cover, we can combine the herbaceous C<sub>4</sub> proportion with other vegetation layers such as woody cover and crop cover. Note: The user must provide additional vegetation layers that represent *actual* land cover, and these layers must match the geographic extent, spatial resolution, and projection of the climate layers. <br>
 
 ``` r
-# Create raster stack of other (non-grassy) vegetation layers
+# Create raster stack of other (non-grass) vegetation layers
 veg_layers <- stack(woody_NA, cropC3_NA, cropC4_NA)
   
 # Indicate layers that correspond to C4 vegetation
@@ -153,7 +153,7 @@ Turning the vegetation map into an isoscape
 
 Finally, we will generate a vegetation stable carbon (*δ*<sup>13</sup>C) isoscape by applying a simple linear mixing model to each grid cell. From the literature, we identify *δ*<sup>13</sup>C endmember values for each plant functional type layer. Isotopic endmembers are weighted by the respective percent vegetation composition of each pixel (in this case, C<sub>4</sub> herbaceous, C<sub>3</sub> herbaceous, C<sub>3</sub> woody).
 
-Note: In this example, we have elected to combine the C<sub>4</sub> and C<sub>3</sub> crop layers with corresponding natural grass layers; however, the functions presented here could be easily adapted for custom plant cover types.
+Note: In this example, we have elected to combine the C<sub>4</sub> and C<sub>3</sub> crop layers with corresponding natural grass layers; however, the functions presented here could be easily adapted for custom plant cover types, corresponding to different isotopic endmember values.
 
 ``` r
 # d13C endmember vector for PFT layers from the literature
@@ -195,7 +195,7 @@ Griffith, D. M. et al. 2015. Biogeographically distinct controls on C<sub>3</sub
 
 Hobson, K. A. 1999. Tracing origins and migration of wildlife using stable isotopes: a review. -- Oecologia 120: 314-326.
 
-Kohn, Matthew J. 2010. Carbon isotope compositions of terrestrial C<sub>3</sub> plants as indicators of (paleo) ecology and (paleo) climate. -- Proc. Natl. Acad. Sci. 107: 19691â€“19695.
+Kohn, M. J. 2010. Carbon isotope compositions of terrestrial C<sub>3</sub> plants as indicators of (paleo) ecology and (paleo) climate. -- Proc. Natl. Acad. Sci. 107: 19691-19695.
 
 Powell, R. L. et al. 2012. Vegetation and soil carbon-13 isoscapes for South America: integrating remote sensing and ecosystem isotope measurements. -- Ecosphere 3: 109.
 

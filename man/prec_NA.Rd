@@ -30,7 +30,7 @@ plot(prec_NA[[3]])}
 
 }
 \references{
-New M, \emph{et al.} 2002. A high-resolution data set of surface
-  climate over global land areas. \emph{Climate Research} 21:1-25.
+New, M. et al. 2002. A high-resolution data set of surface
+  climate over global land areas. -- Climate Research 21:1-25.
 }
 \keyword{datasets}

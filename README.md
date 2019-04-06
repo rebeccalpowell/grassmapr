@@ -27,9 +27,9 @@ devtools::install_github(repo = "rebeccalpowell/grassmapr")
 Example usage
 -------------
 
-For a detailed guide to using `grassmapr`, see the vignette included with package installation. For a commented script, see `grassmapr_exampleScript.R` in the main-level folder.
+For a detailed guide to using `grassmapr`, see the vignette included with package installation. For a commented script, see `grassmapr_exampleScript.R` and/or `grassmapr_exampleScript_tofile.R` in the main-level folder.
 
-Data included in these examples are included with the `grassmapr` package.
+Data included in these examples are installed with the `grassmapr` package.
 
 License
 -------

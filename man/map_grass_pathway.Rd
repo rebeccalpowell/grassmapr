@@ -38,7 +38,7 @@ RasterBrick. Layer[[1]] corresponds to percent of grasses with C4
 }
 \description{
 Wrapper function to map proportion of grasses with C4 and C3
-  photosynthetic pathway.
+  photosynthetic pathway - using climate layers and crossover temperature.
 }
 \examples{
 \donttest{# Load data for example

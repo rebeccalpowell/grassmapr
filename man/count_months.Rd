@@ -23,8 +23,8 @@ RasterLayer. Values correspond to number of months (or other temporal
 }
 \description{
 Generates raster layer of counts corresponding to number of times (usually
-  months) each grid cell satisfies climate criteria, e.g., growing-season or
-  C4 climate.
+  months) each grid cell satisfies climate criteria (e.g., growing-season or
+  C4 climate).
 }
 \examples{
 \donttest{# Count number of months each grid cell meets C4 climate criteria

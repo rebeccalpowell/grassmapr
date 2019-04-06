@@ -8,8 +8,7 @@
   d13C isoscape}
 \description{
 \pkg{grassmapr} provides functions (1) to predict C3 and C4 grass cover based
-  on climate constraints; optionally, to integrate other vegetation layers
-  (e.g., \% woody cover) and (2) to generate stable carbon (d13C) isoscapes
+  on climate constraints; and (2) to generate stable carbon (d13C) isoscapes
   for terrestrial vegetation.
 }
 \section{\strong{1. Mapping C3/C4 grass distribution}}{
@@ -45,17 +44,17 @@ To predict and map the d13C isoscape for terrestrial vegetation, the
 }
 
 \references{
-Still CJ et al. 2003. Global distribution of C3 and C4 vegetation:
-  carbon cycle implications. \emph{Global Biogeochemical Cycles} 17:1006.
+Still, C. J. et al. 2003. Global distribution of C3 and C4 vegetation:
+  carbon cycle implications. -- Global Biogeochemical Cycles 17:1006.
 
-Still CJ and Powell RL. 2010. Continental-scale distributions of vegetation
-  stable carbon isotope ratios. In: West JB et al. (eds). \emph{Isoscapes:
+Still, C. J. and Powell, R. L. 2010. Continental-scale distributions of vegetation
+  stable carbon isotope ratios. In: West, J. B. et al. (eds). Isoscapes:
   understanding movement, pattern, and process on earth through isotope
-  mapping}. Springer, pp.179-193.
+  mapping -- Springer, pp.179-193.
 
-Powell RL et al. 2012. Vegetation and soil carbon-13 isoscapes for South
-  America: integrating remote sensing and ecosystem isotope measurements.
-  \emph{Ecosphere} 3:109.
+Powell, R. L. et al. 2012. Vegetation and soil carbon-13 isoscapes for South
+  America: integrating remote sensing and ecosystem isotope measurements. --
+  Ecosphere 3:109.
 }
 \author{
 Rebecca L. Powell, Daniel M. Griffith, Sydney M. Firmin

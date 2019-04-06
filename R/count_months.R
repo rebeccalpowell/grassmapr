@@ -1,8 +1,8 @@
 #' Count Number of Months in Climate Mask Layers
 #'
 #' Generates raster layer of counts corresponding to number of times (usually
-#'   months) each grid cell satisfies climate criteria, e.g., growing-season or
-#'   C4 climate.
+#'   months) each grid cell satisfies climate criteria (e.g., growing-season or
+#'   C4 climate).
 #'
 #' @param climate.mask Raster* object. Mask of grid cells that meet climate
 #'   parameters, may be result of \code{ intersect_masks} or \code{mask_grids}.

@@ -1,7 +1,7 @@
 #' Map C4 and C3 proportion of grasses
 #'
 #' Wrapper function to map proportion of grasses with C4 and C3
-#'   photosynthetic pathway.
+#'   photosynthetic pathway - using climate layers and crossover temperature.
 #'
 #' @param temp.stack Raster* object. Each layer corresponds to a
 #'   different temporal window (e.g., month) for a temperature climate variable.

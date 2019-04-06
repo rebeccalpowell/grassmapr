@@ -12,10 +12,9 @@
 #'   Global 1km SIN Grid V006 [Data set]. NASA EOSDIS Land Processes DAAC.
 #'   doi: 10.5067/MODIS/MOD13A3.006.
 #'
-#' Solano R, \emph{et al.} 2010. MODIS vegetation index user's guide
-#'   (MOD13 Series). Version 2.0 (Collection 5). Vegetation Index and Phenology
-#'   Lab, The University of Arizona, Tucson, Arizona, USA.
-#'   \url{http://vip.arizona.edu}
+#' Solano, R. et al. 2010. MODIS vegetation index user's guide (MOD13 Series).
+#'   Version 2.0 (Collection 5). Vegetation Index and Phenology Lab, The
+#'   University of Arizona, Tucson, Arizona, USA. \url{http://vip.arizona.edu}
 #' @source \emph{MOD13A3: MODIS Vegetation Indices Monthly V006}. USGS
 #'   Land Processes Distributed Active Archive Center:
 #'   \url{https://lpdaac.usgs.gov}
