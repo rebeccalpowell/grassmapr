@@ -1,7 +1,7 @@
 Package: grassmapr
 Type: Package
 Title: Predict C3/C4 Grass Distribution  
-Version: 0.3.0
+Version: 1.0.0
 Author: Rebecca L. Powell, Sydney M. Firmin, Daniel Griffith
 Maintainer: Rebecca L. Powell <rebecca.l.powell@du.edu> 
 Description: Maps distribution of C3 and C4 grass cover, predicted using input 

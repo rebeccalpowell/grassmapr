@@ -20,6 +20,7 @@ First, load the required R libraries:
 ``` r
 library(raster)
 library(grassmapr)
+library(rgdal)
 ```
 
 Next, load the spatial datasets that we will use in this example. <br>
@@ -57,14 +58,14 @@ compareRaster(temp_NA,
               cropC3_NA)
 ```
 
-If any of these layers had a different extent or resolution, we could apply the function raster::resample() to make the layers compatible with each other. If any raster layer had a different projection, the raster::projectRaster() function can be applied to transform the layer's projection.
+If any of these layers had a different extent or resolution, we could apply the function `raster::resample()` to make the layers compatible with each other. If any raster layer had a different projection, the `raster::projectRaster()` function can be applied to transform the layer's projection.
 
 Workflow to produce a C<sub>3</sub> and C<sub>4</sub> distribution map for North America
 ----------------------------------------------------------------------------------------
 
 First, we will set a C<sub>4</sub> temperature threshold based on the crossover temperature model. Note: In this example we are using mean monthly temperature as our climatic variable, but we could set a threshold based on other temperature variables, such as maximum monthly temperature.
 
-Second, we will set a minimum growing season temperature threshold, as well as a minimum monthly precipitation threshold. The latter screens for locations that have sufficient moisture to support vegetation growth for a given month - as a result, locations that lack sufficient precipitation for plant growth in a given month are excluded from further analysis - for example, deserts and Mediterranean climates. <br>
+Second, we will set a minimum growing season temperature threshold, as well as a minimum monthly precipitation threshold. The latter screens for locations that have sufficient moisture to support vegetation growth for a given month - as a result, locations that lack sufficient precipitation for plant growth in a given month are excluded from further analysis, for example, deserts and Mediterranean (i.e., summer-dry) climates. <br>
 
 ``` r
 # Set a C4 temperature threshold based on the COT model (>= 22 deg. C)
@@ -91,7 +92,7 @@ GS_masks <- mask_climate(temp.stack = temp_NA,
                          precip.threshold = GS_prec)
 ```
 
-We can count the monthly masks to generate an annual representation of the total number of C<sub>4</sub> months and total number of growing season months for each location. <br>
+We can count the stack of monthly masks to generate an annual representation of the total number of C<sub>4</sub> months and/or total number of growing season months for each location. <br>
 
 ``` r
 # Count number of months that satisfy each climate criteria

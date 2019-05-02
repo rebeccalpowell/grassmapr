@@ -1,4 +1,13 @@
-# grassmapr: Example Script to Generate North America isoscape [in Memory]
+# grassmapr: Example Script  [all operations in Memory]
+
+# Set working directory
+setwd("...")
+
+# Load required R libraries
+library(raster)
+library(rgdal)
+library(grassmapr)
+
 
 # STEP 1: Generate monthly climate masks
 

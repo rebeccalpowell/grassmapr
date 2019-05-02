@@ -1,7 +1,13 @@
-# grassmapr: Example Script - North America [Save to File]
+# grassmapr: Example Script [Save function outputs to File]
+
 
 # Set working directory
 setwd("...")
+
+# Load required R libraries
+library(raster)
+library(rgdal)
+library(grassmapr)
 
 
 # STEP 1: Generate monthly climate masks
@@ -18,14 +24,14 @@ GS_temp <- 5
 GS_prec <- 25
 
 # Generate monthly C4 climate masks
-mask_climate_2(temp.stack = temp_NA,
+mask_climate(temp.stack = temp_NA,
   temp.threshold = C4_temp,
   precip.stack = prec_NA,
   precip.threshold = GS_prec,
   filename = "./C4_masks")
 
 # Generate monthly Growing Season (GS) climate masks
-mask_climate_2(temp.stack = temp_NA,
+mask_climate(temp.stack = temp_NA,
   temp.threshold = GS_temp,
   precip.stack = prec_NA,
   precip.threshold = GS_prec,
@@ -38,8 +44,8 @@ GS_masks <- brick("./GS_masks.tif")
 plot(GS_masks)
 
 # [Optionally] - Count number of months that satisfy each climate criteria
-count_months_2(GS_masks, "./GS_total")
-count_months_2(C4_masks, "./C4_total")
+count_months(GS_masks, "./GS_total")
+count_months(C4_masks, "./C4_total")
 
 GS_total <- raster("./GS_total.tif")
 C4_total <- raster("./C4_total.tif")
@@ -53,7 +59,7 @@ plot(C4_total)
 # STEP 2: Predict C4 grass proportion
 
 # Calculate C4 herbaceous proportion based on C4 climate only
-calc_C4_ratio_2(C4_masks, GS_masks, filename = "./C4_ratio")
+calc_C4_ratio(C4_masks, GS_masks, filename = "./C4_ratio")
 
 # Plot C4 herbaceous proportion [i.e., predicted C4 ratio of grasses, based on climate]
 C4_ratio <- raster("./C4_ratio.tif")
@@ -64,7 +70,7 @@ plot(C4_ratio)
 data(ndvi_NA)
 
 # Calculate C4 ratio based on C4 climate AND vegetation productivity
-calc_C4_ratio_2(C4_masks, GS_masks, veg.index = ndvi_NA,
+calc_C4_ratio(C4_masks, GS_masks, veg.index = ndvi_NA,
   filename = "./C4_ratio_vi")
 
 # Compare two predictions of C4 ratio
@@ -103,6 +109,7 @@ calc_pft_cover(C4.ratio = C4_ratio,
 
 # Plot PFT cover layers (%C4 herbaceous, %C3 herbaceous, %woody)
 pft_cover <- brick("./pft_cover.tif")
+names(pft_cover) <- c("C4.herbaceous", "C3.herbaceous", "woody")
 plot(pft_cover)
 
 
@@ -112,13 +119,13 @@ plot(pft_cover)
 d13C_emb <- c(-12.5, -26.7, -27.0) # C4 herb, C3 herb, Woody
 
 # Apply mixing model to generate d13C isoscape
-calc_del13C_2(pft_cover, d13C_emb, filename = "./d13C_iso")
+calc_del13C(pft_cover, d13C_emb, filename = "./d13C_iso")
 
 # Standard deviations of d13C endmember means from the literature
 d13C_emb_std <- c(1.1, 2.3, 1.7) # C4 herb, C3 herb, Woody
 
 # Calculate weighted standard deviation of mean d13C values
-calc_del13C_2(pft_cover, d13C_emb_std, filename = "./d13C_std")
+calc_del13C(pft_cover, d13C_emb_std, filename = "./d13C_std")
 
 # Plot d13C isoscape and standard deviation layers
 d13C_iso <- raster("d13C_iso.tif")
@@ -132,7 +139,33 @@ plot(d13C_std, main = "Std. Dev. d13C \n(per mil)",
   zlim = c(1.0, 2.4))
 
 # Remove intermediate raster objects
-rm(C4_masks, GS_masks, C4_ratio, pft_cover)v
+rm(C4_masks, GS_masks, C4_ratio, pft_cover)
 
 
+##############################################################
 
+# Wrapper script to predict ratio C4/C3 grasses
+#   - given input climate layers and thresholds
+
+# Load data for example
+data(temp_NA)  # mean monthly temperature (deg. C)
+data(prec_NA)  # mean monthly precipitation (mm)
+
+# Specify climate thresholds
+C4_temp <- 22    # mean monthly temperature >= 22 deg. C
+GS_temp <- 5     # mean monthly temperature >= 5 deg. C
+GS_prec <- 25    # mean monthly precipitation >= 25 mm
+
+# Predict percent of grasses by photosynthetic pathway.
+map_grass_pathway(temp.stack = temp_NA,
+                  precip.stack = prec_NA,
+                  C4.threshold = C4_temp,
+                  GS.threshold = GS_temp,
+                  precip.threshold = GS_prec,
+                  filename = "./grass_map")
+
+# Plot C4 and C3 grass layers.
+grass_map <- brick("./grass_map.tif")
+names(grass_map) <- c("C4.proportion", "C3.proportion")
+par(mfrow = c(1,2))
+plot(grass_map)

@@ -41,6 +41,7 @@ First, load the required R libraries:
 ```{r, message = FALSE, warning = FALSE, results = "hide"}
 library(raster)
 library(grassmapr)
+library(rgdal)
 
 ```
 
@@ -88,8 +89,8 @@ compareRaster(temp_NA,
 ```
 
 If any of these layers had a different extent or resolution, we could apply the 
-function raster::resample() to make the layers compatible with each other. If 
-any raster layer had a different projection, the raster::projectRaster() 
+function `raster::resample()` to make the layers compatible with each other. If 
+any raster layer had a different projection, the `raster::projectRaster()` 
 function can be applied to transform the layer's projection. 
 
 
@@ -104,7 +105,7 @@ Second, we will set a minimum growing season temperature threshold, as well as a
 minimum monthly precipitation threshold. The latter screens for locations that 
 have sufficient moisture to support vegetation growth for a given month - as a 
 result, locations that lack sufficient precipitation for plant growth 
-in a given month are excluded from further analysis - for example, deserts and Mediterranean climates. 
+in a given month are excluded from further analysis, for example, deserts and Mediterranean (i.e., summer-dry) climates. 
 <br>
 ```{r, message = FALSE, warning = FALSE, results = "hide"}
 # Set a C4 temperature threshold based on the COT model (>= 22 deg. C)
@@ -137,9 +138,7 @@ GS_masks <- mask_climate(temp.stack = temp_NA,
 
 ```
 
-We can count the monthly masks to generate an annual representation of the total 
-number of C~4~ months and total number of growing season months for each 
-location. 
+We can count the stack of monthly masks to generate an annual representation of the total number of C~4~ months and/or total number of growing season months for each location. 
 <br>
 ```{r, message = FALSE, warning = FALSE, results = "hide", fig.width = 7.5, fig.height = 3.25}
   
