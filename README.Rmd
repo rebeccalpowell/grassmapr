@@ -75,8 +75,7 @@ A copy of the GNU General Public License, version 3, is available at https://www
 To cite package `grassmapr` in publications, use:
 
 Powell, R. L. et al. 2019. grassmapr, an R package to predict C~3~/C~4~ grass 
-distributions and model terrestrial $\delta$^13^C isoscapes. -- Ecography 
-(*in review*). <https://github.com/rebeccalpowell/grassmapr>
+distributions and model terrestrial $\delta$^13^C isoscapes.  <https://github.com/rebeccalpowell/grassmapr>
 
 ## References
 
